@@ -22,7 +22,7 @@ from __init__ import VERSION
 from core.utils import restart
 
 
-REPO = "lovesort/playerok-auto-placement"
+REPO = "railingshell/Playerok-Auto-Placement-v2.0"
 logger = getLogger("universal.updater")
 
 latest_release = None

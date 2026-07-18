@@ -9,7 +9,7 @@ set -e
 BOT_NAME="playerokautoplacement"
 BOT_DIR="/root/playerokautoplacement"
 BOT_FILE="bot.py"
-REPO="lovesort/playerok-auto-placement"
+REPO="railingshell/Playerok-Auto-Placement-v2.0"
 SERVICE_FILE="/etc/systemd/system/${BOT_NAME}.service"
 PYTHON="python3.12"
 CMD="plpap"
