@@ -163,7 +163,7 @@ async def check_new_releases_task(interval=180):
                 continue
 
             bot = tgbot().bot
-            for user_id in config["telegram"]["bot"]["signed_users"]: 
+            for user_id in config["telegram"]["bot"]["signed_users"]:
                 asyncio.run_coroutine_threadsafe(
                     bot.send_message(
                         chat_id=user_id,
@@ -171,8 +171,12 @@ async def check_new_releases_task(interval=180):
                         reply_markup=new_release_kb(),
                         disable_web_page_preview=True,
                         parse_mode="HTML"
-                    ), 
+                    ),
                     tgbot_loop()
                 )
         except:
             pass
+
+
+if __name__ == "__main__":
+    check_for_updates()

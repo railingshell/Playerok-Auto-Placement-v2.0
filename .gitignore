@@ -25,3 +25,10 @@ Thumbs.db
 
 # Git
 .git/
+
+# Local auth helper with token
+setup_git_auth.bat
+
+# Release helper scripts (contain no secrets but optional locally)
+create_release.bat
+auto_push.bat
