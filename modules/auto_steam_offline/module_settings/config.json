@@ -1,0 +1,8 @@
+{
+    "enabled": true,
+    "max_codes_per_activation": 3,
+    "code_cooldown_seconds": 30,
+    "auto_complete_deal": true,
+    "admin_chat_id": "",
+    "profit_notifications": true
+}

@@ -1,0 +1,59 @@
+{
+    "order_wait": {
+        "enabled": true,
+        "text": [
+            "⏳ Заказ принят. Подготавливаю офлайн-активацию Steam..."
+        ]
+    },
+    "activation_delivered": {
+        "enabled": true,
+        "text": [
+            "✅ Активация готова!",
+            "",
+            "👤 Логин: <code>{login}</code>",
+            "🔑 Пароль: <code>{password}</code>",
+            "",
+            "💡 Инструкция:",
+            "1. Войдите в Steam клиент по логину и паролю.",
+            "2. Для получения кода Steam Guard напишите: <code>!sg {deal_id}</code>",
+            "3. После входа поставьте клиент в офлайн-режим и начинайте играть.",
+            "",
+            "⏳ Осталось кодов Steam Guard: {codes_left}"
+        ]
+    },
+    "steamguard_code": {
+        "enabled": true,
+        "text": [
+            "🔐 Код Steam Guard: <code>{code}</code>",
+            "",
+            "⏱ Действителен 30 секунд.",
+            "Осталось кодов: {codes_left}"
+        ]
+    },
+    "steamguard_limit": {
+        "enabled": true,
+        "text": [
+            "❌ Лимит кодов Steam Guard исчерпан."
+        ]
+    },
+    "already_activated": {
+        "enabled": true,
+        "text": [
+            "✅ Активация уже была выдана по этой сделке."
+        ]
+    },
+    "rental_refunded": {
+        "enabled": true,
+        "text": [
+            "📦 Средства по сделке <code>{deal_id}</code> возвращены.",
+            "Причина: {reason}"
+        ]
+    },
+    "no_account_available": {
+        "enabled": true,
+        "text": [
+            "😔 К сожалению, сейчас нет свободных аккаунтов для активации.",
+            "Оформляем возврат средств."
+        ]
+    }
+}
