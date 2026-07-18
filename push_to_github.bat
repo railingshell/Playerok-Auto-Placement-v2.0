@@ -32,6 +32,7 @@ git branch -M main
 echo [3/7] Set user identity...
 git config user.name "%GIT_USER%"
 git config user.email "%GIT_EMAIL%"
+git config credential.helper ""
 
 echo [4/7] Add files...
 git add .
