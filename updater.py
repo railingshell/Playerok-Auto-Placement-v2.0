@@ -96,17 +96,25 @@ def check_for_updates():
     try:
         global latest_release
         releases = get_releases()
+        if not releases:
+            logger.info(f"{Fore.WHITE}В репозитории пока нет релизов")
+            return
+
         latest_release = get_latest_release(releases)
         versions = [release["tag_name"] for release in releases]
-        
+
+        if not latest_release:
+            logger.info(f"{Fore.WHITE}Не удалось определить последний релиз")
+            return
+
         if VERSION not in versions:
             logger.info(f"Вашей версии {Fore.LIGHTWHITE_EX}{VERSION} {Fore.WHITE}нету в релизах репозитория. Последняя версия: {Fore.LIGHTWHITE_EX}{latest_release['tag_name']}")
             return
-        
+
         elif Version(VERSION) == Version(latest_release["tag_name"]):
             logger.info(f"У вас установлена последняя версия: {Fore.LIGHTWHITE_EX}{VERSION}")
             return
-        
+
         elif Version(VERSION) < Version(latest_release["tag_name"]):
             logger.info(f"{Fore.YELLOW}Доступна новая версия: {Fore.LIGHTWHITE_EX}{latest_release['tag_name']}")
             
@@ -135,8 +143,13 @@ async def check_new_releases_task(interval=180):
             global latest_release
 
             releases = get_releases()
+            if not releases:
+                continue
+
             release = get_latest_release(releases)
-            
+            if not release:
+                continue
+
             if (
                 latest_release and latest_release == release
                 or Version(VERSION) >= Version(release["tag_name"])

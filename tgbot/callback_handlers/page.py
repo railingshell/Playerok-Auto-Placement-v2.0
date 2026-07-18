@@ -1,6 +1,7 @@
 from aiogram import Router
 from aiogram.types import CallbackQuery
 from aiogram.fsm.context import FSMContext
+from uuid import UUID
 
 from .. import templates as templ
 from .. import callback_datas as calls
@@ -73,21 +74,29 @@ async def callback_message_page(callback: CallbackQuery, callback_data: calls.Me
 
 @router.callback_query(calls.ModulePage.filter())
 async def callback_module_page(callback: CallbackQuery, callback_data: calls.ModulePage, state: FSMContext):
-    await state.set_state(None)
-    
-    module_uuid = callback_data.uuid
-    await state.update_data(module_uuid=module_uuid)
-    
-    data = await state.get_data()
-    last_page = data.get("last_page", 0)
-    
-    await throw_float_message(
-        state=state,
-        message=callback.message,
-        text=templ.module_page_text(module_uuid),
-        reply_markup=templ.module_page_kb(module_uuid, last_page),
-        callback=callback
-    )
+    try:
+        await state.set_state(None)
+
+        module_uuid = UUID(callback_data.uuid)
+        await state.update_data(module_uuid=module_uuid)
+
+        data = await state.get_data()
+        last_page = data.get("last_page", 0)
+
+        text = templ.module_page_text(module_uuid)
+        kb = templ.module_page_kb(module_uuid, last_page)
+
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=text,
+            reply_markup=kb,
+            callback=callback
+        )
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        await callback.answer(f"Ошибка: {e}", show_alert=True)
 
 
 @router.callback_query(calls.ChatPage.filter())

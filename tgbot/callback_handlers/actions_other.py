@@ -945,14 +945,14 @@ async def callback_reload_module(callback: CallbackQuery, state: FSMContext):
         
         if not uuid:
             return await callback_modules_pagination(
-                callback, calls.ModulePage(page=last_page), state
+                callback, calls.ModulesPagination(page=last_page), state
             )
-        
+
         from core.modules import reload_module
         await reload_module(uuid)
-        
+
         return await callback_module_page(
-            callback, calls.ModulePage(uuid=uuid), state
+            callback, calls.ModulePage(uuid=str(uuid)), state
         )
     except Exception as e:
         await throw_float_message(

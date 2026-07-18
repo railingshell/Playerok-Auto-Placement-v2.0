@@ -205,7 +205,7 @@ def load_modules() -> list[Module]:
                     telegram_bot_routers = module.TELEGRAM_BOT_ROUTERS
                 
                 module_data = Module(
-                    uuid.uuid4(),
+                    uuid.uuid5(uuid.NAMESPACE_DNS, f"modules.{name}"),
                     enabled=False,
                     meta=ModuleMeta(
                         module.PREFIX,

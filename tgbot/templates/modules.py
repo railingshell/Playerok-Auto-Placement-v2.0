@@ -31,7 +31,7 @@ def modules_kb(page=0):
     end_offset = start_offset + items_per_page
 
     for module in list(modules)[start_offset:end_offset]:
-        rows.append([InlineKeyboardButton(text=module.meta.name, callback_data=calls.ModulePage(uuid=module.uuid).pack())])
+        rows.append([InlineKeyboardButton(text=module.meta.name, callback_data=calls.ModulePage(uuid=str(module.uuid)).pack())])
 
     if total_pages > 1:
         buttons_row = []

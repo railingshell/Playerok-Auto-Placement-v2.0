@@ -1,7 +1,7 @@
 from aiogram.filters.callback_data import CallbackData
 
 
-class ModulesPagination(CallbackData, prefix="modpag"):
+class ModulesPagination(CallbackData, prefix="modspag"):
     page: int
 
 class SignedUsersPagination(CallbackData, prefix="supag"):

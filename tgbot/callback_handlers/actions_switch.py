@@ -329,7 +329,7 @@ async def callback_switch_module_enabled(callback: CallbackQuery, state: FSMCont
             await enable_module(module_uuid)
         
         return await callback_module_page(
-            callback, calls.ModulePage(uuid=module_uuid), state
+            callback, calls.ModulePage(uuid=str(module_uuid)), state
         )
     except Exception as e:
         await throw_float_message(

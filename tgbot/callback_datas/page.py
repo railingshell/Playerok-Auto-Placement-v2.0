@@ -2,8 +2,8 @@ from aiogram.filters.callback_data import CallbackData
 from uuid import UUID
 
 
-class ModulePage(CallbackData, prefix="modpage"):
-    uuid: UUID
+class ModulePage(CallbackData, prefix="modpage_"):
+    uuid: str
 
 class MessagePage(CallbackData, prefix="messpage"):
     message_id: str
