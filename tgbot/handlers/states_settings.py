@@ -531,10 +531,8 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
             names = archive.namelist()
 
         with archive:
-            has_init = any(
-                n == f"{next(iter({n.split('/')[0] for n in names if '/' in n}))}//__init__.py"
-                for n in names
-            )
+            # модуль лежит в корне архива (без папки), если есть корневой __init__.py
+            has_init = "__init__.py" in names
 
             # корневые папки в архиве
             root_folders = {n.split('/')[0] for n in names if '/' in n}

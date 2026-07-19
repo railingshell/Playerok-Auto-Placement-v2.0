@@ -26,14 +26,16 @@ async def _load_withdrawal_info(state: FSMContext):
 
     try: 
         crsr = None
+        all_cards = []
         while True:
             card_list = acc.get_verified_cards(after_cursor=crsr)
+            all_cards.extend(card_list.bank_cards)
             if not card_list.page_info.has_next_page: break
             crsr = card_list.page_info.end_cursor
         
-        await state.update_data(bank_cards=card_list.bank_cards)
+        await state.update_data(bank_cards=all_cards)
         if credentials_type == "card":
-            card = [card for card in card_list.bank_cards if card.id == card_id][0]
+            card = [c for c in all_cards if c.id == card_id][0]
     except Exception: 
         pass
 
