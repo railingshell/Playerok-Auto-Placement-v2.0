@@ -56,7 +56,7 @@ def get_latest_release(releases):
 
 def download_update(release_info: dict) -> bytes:
     zip_url = release_info['zipball_url']
-    zip_response = requests.get(zip_url)
+    zip_response = requests.get(zip_url, timeout=60)
     
     if zip_response.status_code != 200:
         raise Exception(f"Ошибка при скачивании архива обновления: {zip_response.status_code}")
@@ -142,7 +142,10 @@ async def check_new_releases_task(interval=180):
         try:
             global latest_release
 
-            releases = get_releases()
+            # get_releases() — блокирующий HTTP-запрос; выносим из event-loop,
+            # чтобы не подвешивать асинхронную работу бота
+            loop = asyncio.get_running_loop()
+            releases = await loop.run_in_executor(None, get_releases)
             if not releases:
                 continue
 
