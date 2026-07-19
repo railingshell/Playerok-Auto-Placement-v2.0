@@ -21,7 +21,8 @@
 - 💾 **Бэкап и восстановление** (`backup.py`): архивирование `bot_settings/`
   (вместе с ключом шифрования) и `bot_data/` в локальную папку `backups/` с
   защитой от zip-slip при восстановлении. Команды: `create`, `list`, `restore`.
-  Интегрировано в Linux-CLI (`plpap backup` / `plpap restore`) и в Windows-меню.
+  Интегрировано в Linux-CLI (`plpap backup` / `plpap restore`), Windows-меню и
+  в меню самого Telegram-бота (раздел **💾 Бэкап**: создать / список).
 - 🧪 Набор автотестов (`pytest`) для валидаторов, логики конфигов, шифрования и бэкапа.
 - 🧹 Линтер **ruff** с конфигурацией под кодовую базу и хуки **pre-commit**.
 - 🤖 GitHub Actions **CI** (линтинг + тесты на каждый push и pull request).
