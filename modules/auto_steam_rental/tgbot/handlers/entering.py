@@ -85,7 +85,7 @@ async def handler_entering_mafile(message: types.Message, state: FSMContext):
         try:
             parsed = json.loads(mafile_data)
         except Exception:
-            raise Exception("❌ Невалидный JSON в maFile")
+            raise Exception("❌ Невалидный JSON в maFile") from None
 
         state_data = await state.get_data()
         new_account = state_data.get("new_account", {})

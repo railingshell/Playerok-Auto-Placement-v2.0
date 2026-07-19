@@ -1,5 +1,4 @@
 import re
-import traceback
 from logging import getLogger
 from typing import TYPE_CHECKING
 from colorama import Fore

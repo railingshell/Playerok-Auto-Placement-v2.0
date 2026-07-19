@@ -1,9 +1,7 @@
 import math
 import textwrap
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from plbot.playerokbot import get_playerok_bot
 
 from .. import callback_datas as calls
 from ...settings import Settings as sett
@@ -94,7 +92,7 @@ def settings_kb():
     log_states = "🟢 Включено" if config["playerok"]["bot"]["log_states"] else "🔴 Выключено"
     rows = [
         [InlineKeyboardButton(text=f"👁️ Логгировать состояния в консоль: {log_states}", callback_data="forms_switch_log_states")],
-        [InlineKeyboardButton(text=f"💬 Сообщения", callback_data=calls.FORMS_MessagesPagination(page=0).pack())],
+        [InlineKeyboardButton(text="💬 Сообщения", callback_data=calls.FORMS_MessagesPagination(page=0).pack())],
         [
         InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.FORMS_MenuNavigation(to="default").pack()),
         InlineKeyboardButton(text="🔄️ Обновить", callback_data=calls.FORMS_MenuNavigation(to="settings").pack())

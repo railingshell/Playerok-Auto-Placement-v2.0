@@ -11,7 +11,7 @@ logger = getLogger(f"{NAME}.telegram")
 async def on_telegram_bot_init(tgbot: TelegramBot) -> None:
     try:
         main_menu_commands = await tgbot.bot.get_my_commands()
-        roblox_menu_commands = [BotCommand(command=f"/roblox_panel", description=f"🧱 Управление {NAME}")]
+        roblox_menu_commands = [BotCommand(command="/roblox_panel", description=f"🧱 Управление {NAME}")]
         await tgbot.bot.set_my_commands(list(main_menu_commands + roblox_menu_commands))
     except Exception:
         pass
