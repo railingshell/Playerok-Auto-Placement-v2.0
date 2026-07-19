@@ -65,6 +65,7 @@ def menu_kb():
         InlineKeyboardButton(text="🔌 Модули", callback_data=calls.ModulesPagination(page=0).pack()),
         InlineKeyboardButton(text="🔑 Авторизации", callback_data=calls.SignedUsersPagination(page=0).pack()),
         ],
+        [InlineKeyboardButton(text="💾 Бэкап", callback_data=calls.MenuNavigation(to="backup").pack())],
         [InlineKeyboardButton(text="━━━  ССЫЛКИ  ━━━", callback_data="null_answer")],
         [
         InlineKeyboardButton(text="📢 Новости", url="https://t.me/rogaartproduction"),

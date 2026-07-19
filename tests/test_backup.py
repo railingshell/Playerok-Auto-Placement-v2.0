@@ -34,6 +34,17 @@ def test_create_and_list(tmp_path, monkeypatch):
     assert len(backup.list_backups()) == 1
 
 
+def test_get_backups_returns_sorted(tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    assert backup.get_backups() == []
+
+    _make_tree(tmp_path)
+    backup.create_backup()
+    names = backup.get_backups()
+    assert len(names) == 1
+    assert names[0].endswith(".zip")
+
+
 def test_create_with_nothing_to_backup(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     assert backup.create_backup() is None

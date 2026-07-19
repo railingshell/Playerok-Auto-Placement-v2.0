@@ -7,6 +7,7 @@ from .notifications import *
 from .logs import *
 from .updates import *
 from .signed_users import *
+from .backup import *
 
 from .stats_day import *
 from .stats_week import *

@@ -107,6 +107,10 @@ async def callback_menu_navigation(callback: CallbackQuery, callback_data: calls
         await throw_float_message(
             state, callback.message, templ.other_text(), templ.other_kb(), callback
         )
+    elif to == "backup":
+        await throw_float_message(
+            state, callback.message, templ.backup_text(), templ.backup_kb(), callback
+        )
 
 @router.callback_query(calls.PlaceholdersNavigation.filter())
 async def callback_placeholders_navigation(callback: CallbackQuery, callback_data: calls.PlaceholdersNavigation, state: FSMContext):

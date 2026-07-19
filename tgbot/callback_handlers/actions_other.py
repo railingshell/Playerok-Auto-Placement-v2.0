@@ -1479,3 +1479,87 @@ async def callback_install_update(callback: CallbackQuery, state: FSMContext):
             reply_markup=templ.destroy_kb(),
             callback=callback
         )
+
+
+@router.callback_query(F.data == "create_backup")
+async def callback_create_backup(callback: CallbackQuery, state: FSMContext):
+    try:
+        await state.set_state(None)
+
+        config = sett.get("config")
+        if callback.from_user.id not in config["telegram"]["bot"]["signed_users"]:
+            return await do_auth(callback.message, state)
+
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=templ.backup_float_text("💾 Создаю <b>бэкап</b>, ожидайте..."),
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="backup").pack()),
+            callback=callback
+        )
+
+        import backup as backup_mod
+        archive = backup_mod.create_backup()
+
+        if archive:
+            name = os.path.basename(archive)
+            size_kb = os.path.getsize(archive) / 1024
+            text = templ.backup_float_text(
+                f"✅ Бэкап создан: <code>{name}</code> ({size_kb:.1f} КБ)"
+                "\n\n<blockquote><b>(?)</b> Архив лежит на сервере в папке <code>backups/</code> "
+                "и содержит ключ шифрования — храните его в надёжном месте.</blockquote>"
+            )
+        else:
+            text = templ.backup_float_text(
+                "⚠️ <b>Нечего бэкапить</b>: папки настроек и данных не найдены."
+            )
+
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=text,
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="backup").pack())
+        )
+    except Exception as e:
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=templ.backup_float_text(e),
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="backup").pack())
+        )
+
+
+@router.callback_query(F.data == "list_backups")
+async def callback_list_backups(callback: CallbackQuery, state: FSMContext):
+    try:
+        await state.set_state(None)
+
+        config = sett.get("config")
+        if callback.from_user.id not in config["telegram"]["bot"]["signed_users"]:
+            return await do_auth(callback.message, state)
+
+        import backup as backup_mod
+        names = backup_mod.get_backups()
+
+        if names:
+            listing = "\n".join(f"・ <code>{n}</code>" for n in names[:20])
+            text = templ.backup_float_text(
+                f"📦 Всего бэкапов: <b>{len(names)}</b>\n\n{listing}"
+            )
+        else:
+            text = templ.backup_float_text("ℹ️ <b>Бэкапов пока нет.</b>")
+
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=text,
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="backup").pack()),
+            callback=callback
+        )
+    except Exception as e:
+        await throw_float_message(
+            state=state,
+            message=callback.message,
+            text=templ.backup_float_text(e),
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="backup").pack())
+        )

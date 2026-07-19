@@ -54,16 +54,19 @@ def create_backup(targets: list[str] = BACKUP_TARGETS, backup_dir: str = BACKUP_
     return archive_path
 
 
-def list_backups(backup_dir: str = BACKUP_DIR) -> list[str]:
-    """Возвращает список архивов бэкапов, от новых к старым."""
+def get_backups(backup_dir: str = BACKUP_DIR) -> list[str]:
+    """Возвращает список файлов-бэкапов (от новых к старым) без вывода в консоль."""
     if not os.path.isdir(backup_dir):
-        print("ℹ️  Бэкапов пока нет.")
         return []
-
-    archives = sorted(
+    return sorted(
         (f for f in os.listdir(backup_dir) if f.endswith(".zip")),
         reverse=True,
     )
+
+
+def list_backups(backup_dir: str = BACKUP_DIR) -> list[str]:
+    """Возвращает список архивов бэкапов, от новых к старым."""
+    archives = get_backups(backup_dir)
     if not archives:
         print("ℹ️  Бэкапов пока нет.")
         return []
