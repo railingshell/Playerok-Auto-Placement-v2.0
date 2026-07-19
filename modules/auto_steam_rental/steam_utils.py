@@ -56,7 +56,6 @@ def change_steam_password(login: str, old_password: str, new_password: str, api_
     """
     try:
         from steam.client import SteamClient
-        from steam.guard import SteamAuthenticator
     except ImportError:
         return False
 

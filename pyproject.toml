@@ -16,7 +16,6 @@ line-length = 120
 extend-exclude = [
     ".templates",
     "playerokapi",
-    "modules",
 ]
 
 [tool.ruff.lint]
