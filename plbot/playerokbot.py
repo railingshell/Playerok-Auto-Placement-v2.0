@@ -1014,7 +1014,7 @@ class PlayerokBot:
         if self.config["playerok"]["auto_restore_items"]["sold"]:
             if not event.deal.item.name:
                 event.deal.item = self.account.get_item(event.deal.item.id)
-                time.sleep(1)
+                await asyncio.sleep(1)
             
             for _ in range(3):
                 try: 
@@ -1030,7 +1030,7 @@ class PlayerokBot:
 
                     break
                 except Exception: 
-                    time.sleep(4)
+                    await asyncio.sleep(4)
             else:
                 return
             
