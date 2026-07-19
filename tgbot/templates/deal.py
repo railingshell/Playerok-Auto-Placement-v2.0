@@ -57,12 +57,16 @@ def deal_text(deal: ItemDeal):
     dt = datetime.fromisoformat(iso_dt).astimezone(pytz.timezone("Europe/Moscow"))
     date = dt.strftime("%d.%m %H:%M:%S")
     
+    data_block = f"\n{data_str}\n" if data_str else ""
     txt = textwrap.dedent(f"""
-        <b>📄📋 Страница сделки</b>
-        \n<b>👤 Покупатель:</b> {username}\n<b>🏷️ Статус:</b> {status_sym} {status_str}
-        \n<b>🛍️ Товар:</b> {item_name} <a href="{item_image}">(Изображение)</a>\n<b>💰 Цена:</b> {item_price}₽ {problem}
-        \n{data_str}
-        \n<b>📅 Дата создания:</b> {date}
+        📋 <b>Сделка</b> · {status_sym} {status_str}
+
+        <b>👤 Покупатель:</b> {username}
+        <b>🛍 Товар:</b> {item_name}
+        <b>💰 Сумма:</b> {item_price}₽
+        {problem}
+        {data_block}
+        <b>🕒 {date}</b>   ·   <a href="{item_image}">🔗 Фото</a>
     """)
     return txt
 
