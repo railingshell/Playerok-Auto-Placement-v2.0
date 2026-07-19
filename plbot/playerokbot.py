@@ -61,14 +61,14 @@ logger = getLogger("universal.playerok")
 
 def get_playerok_bot() -> PlayerokBot | None:
     if hasattr(PlayerokBot, "instance"):
-        return getattr(PlayerokBot, "instance")
+        return PlayerokBot.instance
 
 
 class PlayerokBot:
     def __new__(cls, *args, **kwargs) -> PlayerokBot:
         if not hasattr(cls, "instance"):
             cls.instance = super().__new__(cls)
-        return getattr(cls, "instance")
+        return cls.instance
 
     def __init__(self):
         self.config = sett.get("config")
@@ -182,16 +182,18 @@ class PlayerokBot:
         return False
 
 
-    def send_message(self, chat_id: str, text: str | None = None, images: list[str | bytes] = [],
+    def send_message(self, chat_id: str, text: str | None = None, images: list[str | bytes] | None = None,
                      mark_chat_as_read: bool = None, exclude_watermark: bool = False, max_attempts: int = 3) -> ChatMessage | None:
         """
         Кастомный метод отправки сообщения в чат Playerok.
         Пытается отправить за N попыток, если не удалось - выдаёт ошибку в консоль.
         """
         
+        images = images or []
         if not any((text, images)): 
             return
         
+        err = "Не удалось отправить сообщение"
         for _ in range(max_attempts):
             try:
                 read_chat_enabled = self.config["playerok"]["read_chat"]
@@ -212,8 +214,6 @@ class PlayerokBot:
                 return mess
             except Exception as e:
                 err = e
-        else:
-            err = "Не удалось отправить сообщение"
         
         msg = ""
         if text: 

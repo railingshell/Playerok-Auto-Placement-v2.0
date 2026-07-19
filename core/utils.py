@@ -198,7 +198,9 @@ def patch_requests():
     curl_cffi.Session.request = _request  # type: ignore
 
 
-def run_async_in_thread(func: callable, args: list = [], kwargs: dict = {}):
+def run_async_in_thread(func: callable, args: list | None = None, kwargs: dict | None = None):
+    args = args or []
+    kwargs = kwargs or {}
     def run():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
@@ -210,7 +212,9 @@ def run_async_in_thread(func: callable, args: list = [], kwargs: dict = {}):
     Thread(target=run, daemon=True).start()
 
 
-def run_forever_in_thread(func: callable, args: list = [], kwargs: dict = {}):
+def run_forever_in_thread(func: callable, args: list | None = None, kwargs: dict | None = None):
+    args = args or []
+    kwargs = kwargs or {}
     def run():
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)

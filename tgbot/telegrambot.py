@@ -21,19 +21,19 @@ logger = logging.getLogger("universal.telegram")
 
 def get_telegram_bot() -> TelegramBot | None:
     if hasattr(TelegramBot, "instance"):
-        return getattr(TelegramBot, "instance")
+        return TelegramBot.instance
 
 
 def get_telegram_bot_loop() -> asyncio.AbstractEventLoop | None:
     if hasattr(get_telegram_bot(), "loop"):
-        return getattr(get_telegram_bot(), "loop")
+        return get_telegram_bot().loop
 
 
 class TelegramBot:
     def __new__(cls, *args, **kwargs) -> TelegramBot:
         if not hasattr(cls, "instance"):
             cls.instance = super().__new__(cls)
-        return getattr(cls, "instance")
+        return cls.instance
 
     def __init__(self):
         logging.getLogger("aiogram").setLevel(logging.CRITICAL)

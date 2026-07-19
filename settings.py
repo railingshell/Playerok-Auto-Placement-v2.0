@@ -293,10 +293,12 @@ def get_json(path: str, default: dict, need_restore: bool = True) -> dict:
                     json.dump(config, f, indent=4, ensure_ascii=False)
     except Exception:
         config = default
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(config, f, indent=4, ensure_ascii=False)
-    finally:
-        return config
+        try:
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+        except Exception:
+            pass
+    return config
     
 
 def set_json(path: str, new: dict):

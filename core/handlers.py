@@ -162,7 +162,7 @@ def remove_playerok_event_handlers(handlers: dict[EventTypes, list[callable]]):
                     _playerok_event_handlers[event].remove(func)
 
 
-async def call_bot_event(event: str, args: list = [], func = None):
+async def call_bot_event(event: str, args: list | None = None, func = None):
     """
     Вызывает ивент бота.
 
@@ -175,6 +175,7 @@ async def call_bot_event(event: str, args: list = [], func = None):
     :param func: Функция, для которой нужно вызвать ивент (если нужно вызвать только для одной определённой), _опционально_.
     :type func: `callable` or `None`
     """
+    args = args or []
     if not func: 
         handlers = get_bot_event_handlers().get(event, [])
     else:
@@ -186,7 +187,7 @@ async def call_bot_event(event: str, args: list = [], func = None):
             logger.error(f"{Fore.LIGHTRED_EX}Ошибка при обработке хендлера «{handler.__module__}.{handler.__qualname__}» для ивента бота «{event}»: {Fore.WHITE}{e}")
 
 
-async def call_playerok_event(event: EventTypes, args: list = []):
+async def call_playerok_event(event: EventTypes, args: list | None = None):
     """
     Вызывает ивент бота.
 
@@ -196,6 +197,7 @@ async def call_playerok_event(event: EventTypes, args: list = []):
     :param args: Аргументы.
     :type args: `list`
     """
+    args = args or []
     handlers = _playerok_event_handlers.get(event, [])
     for handler in handlers:
         try:

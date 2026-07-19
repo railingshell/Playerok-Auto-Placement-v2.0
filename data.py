@@ -48,10 +48,12 @@ def get_json(path: str, default: dict | list) -> dict:
             config = json.load(f)
     except Exception:
         config = default
-        with open(path, 'w', encoding='utf-8') as f:
-            json.dump(config, f, indent=4, ensure_ascii=False)
-    finally:
-        return config
+        try:
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(config, f, indent=4, ensure_ascii=False)
+        except Exception:
+            pass
+    return config
     
 
 def set_json(path: str, new: dict):
