@@ -424,6 +424,30 @@ configure_config()
     echo -e "  ${GREEN}✔${NC}  Автозапуск при старте сервера включён"
     echo ""
     ;;
+  backup)
+    echo ""
+    echo -e "  ${CYAN}💾${NC}  Создаю бэкап настроек и данных..."
+    echo ""
+    cd "$BOT_DIR"
+    "$BOT_DIR/venv/bin/python" backup.py create
+    echo ""
+    ;;
+  restore)
+    echo ""
+    cd "$BOT_DIR"
+    if [[ -z "$2" ]]; then
+      "$BOT_DIR/venv/bin/python" backup.py list
+      echo ""
+      echo -e "  ${GRAY}Использование:${NC} ${CYAN}plpap restore <путь-к-архиву>${NC}"
+      echo ""
+      exit 0
+    fi
+    echo -e "  ${CYAN}↻${NC}  Восстанавливаю из бэкапа: $2"
+    systemctl stop "$SERVICE" 2>/dev/null || true
+    "$BOT_DIR/venv/bin/python" backup.py restore "$2"
+    systemctl start "$SERVICE"
+    echo ""
+    ;;
   disable)
     systemctl disable "$SERVICE" 2>/dev/null
     echo ""
@@ -443,6 +467,8 @@ configure_config()
     echo -e "  ${CYAN}plpap log${NC}      ${GRAY}→${NC}  живые логи  ${GRAY}(Ctrl+C для выхода)${NC}"
     echo -e "  ${CYAN}plpap log100${NC}   ${GRAY}→${NC}  последние 100 строк"
     echo -e "  ${CYAN}plpap update${NC}   ${GRAY}→${NC}  обновить с GitHub"
+    echo -e "  ${CYAN}plpap backup${NC}   ${GRAY}→${NC}  бэкап настроек и данных"
+    echo -e "  ${CYAN}plpap restore${NC}  ${GRAY}→${NC}  восстановить из бэкапа"
     echo -e "  ${CYAN}plpap enable${NC}   ${GRAY}→${NC}  включить автозапуск"
     echo -e "  ${CYAN}plpap disable${NC}  ${GRAY}→${NC}  выключить автозапуск"
     echo ""
