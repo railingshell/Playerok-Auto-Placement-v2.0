@@ -21,16 +21,18 @@ from __future__ import annotations
 
 import os
 import copy
+import json
 from logging import getLogger
 
 logger = getLogger("universal")
 
 ENC_PREFIX = "enc::"
+_ENC_KEY = "__enc__"  # ключ-обёртка для пофайлового шифрования
 _KEY_ENV = "PAP_SECRET_KEY"
 _DISABLE_ENV = "PAP_DISABLE_ENCRYPTION"
 _KEY_PATH = os.path.join("bot_settings", ".secret_key")
 
-# Чувствительные пути внутри конкретного файла настроек (по его пути).
+# Чувствительные пути внутри конкретного файла настроек (по его пути/суффиксу).
 # Привязка к пути файла (а не к имени "config") гарантирует, что конфиги
 # модулей, которые тоже называются "config", НЕ будут затронуты.
 # Пароль бота (telegram.bot.password) намеренно НЕ шифруется: это локальный
@@ -44,12 +46,45 @@ SENSITIVE_PATHS: dict[str, list[tuple[str, ...]]] = {
         ("playerok", "auto_withdrawal", "sbp_phone_number"),
         ("playerok", "auto_withdrawal", "usdt_address"),
     ],
+    # Конфиги модулей (сопоставление по суффиксу пути)
+    "modules/auto_roblox_accounts/module_settings/config.json": [
+        ("lzt", "token"),
+    ],
+    "modules/auto_steam_rental/module_settings/config.json": [
+        ("steam", "api_key"),
+    ],
 }
+
+# Файлы данных, которые шифруются ЦЕЛИКОМ (схема — список словарей с логинами,
+# паролями, maFile и т.п., поэтому пофайловое шифрование надёжнее пополевого).
+# Сопоставление по суффиксу пути. stats.json намеренно НЕ шифруется (только счётчики).
+FILE_ENCRYPT_SUFFIXES: tuple[str, ...] = (
+    "modules/auto_roblox_accounts/module_data/profiles.json",
+    "modules/auto_roblox_accounts/module_data/purchases.json",
+    "modules/auto_steam_offline/module_data/accounts.json",
+    "modules/auto_steam_offline/module_data/activations.json",
+    "modules/auto_steam_rental/module_data/accounts.json",
+    "modules/auto_steam_rental/module_data/rentals.json",
+)
 
 
 def _normalize(path: str) -> str:
     """Приводит путь к единому виду (прямые слэши) для сопоставления в разных ОС."""
     return str(path).replace("\\", "/")
+
+
+def _match_sensitive_paths(file_path: str) -> list[tuple[str, ...]] | None:
+    """Находит список чувствительных путей по точному пути или суффиксу."""
+    norm = _normalize(file_path)
+    for key, paths in SENSITIVE_PATHS.items():
+        if norm == key or norm.endswith("/" + key):
+            return paths
+    return None
+
+
+def _is_whole_file_encrypted(file_path: str) -> bool:
+    norm = _normalize(file_path)
+    return any(norm == s or norm.endswith("/" + s) for s in FILE_ENCRYPT_SUFFIXES)
 
 _cipher = None
 _cipher_ready = False
@@ -172,7 +207,7 @@ def _walk(config: dict, path: tuple[str, ...], transform) -> None:
 
 def encrypt_config(file_path: str, config):
     """Возвращает копию конфига с зашифрованными чувствительными полями."""
-    paths = SENSITIVE_PATHS.get(_normalize(file_path))
+    paths = _match_sensitive_paths(file_path)
     if not paths or not isinstance(config, dict):
         return config
     result = copy.deepcopy(config)
@@ -183,9 +218,59 @@ def encrypt_config(file_path: str, config):
 
 def decrypt_config(file_path: str, config):
     """Расшифровывает чувствительные поля конфига на месте и возвращает его."""
-    paths = SENSITIVE_PATHS.get(_normalize(file_path))
+    paths = _match_sensitive_paths(file_path)
     if not paths or not isinstance(config, dict):
         return config
     for path in paths:
         _walk(config, path, decrypt_value)
     return config
+
+
+def encrypt_payload(file_path: str, data):
+    """
+    Шифрует файл данных ЦЕЛИКОМ (для module_data со списками аккаунтов и т.п.).
+    Возвращает обёртку {"__enc__": "<token>"} — валидный JSON. Если файл не помечен
+    к шифрованию, шифр недоступен или данные уже зашифрованы — возвращает как есть.
+    """
+    if not _is_whole_file_encrypted(file_path):
+        return data
+    if isinstance(data, dict) and _ENC_KEY in data:
+        return data  # уже зашифровано
+    cipher = get_cipher()
+    if cipher is None:
+        return data
+    raw = json.dumps(data, ensure_ascii=False).encode("utf-8")
+    token = cipher.encrypt(raw).decode("utf-8")
+    return {_ENC_KEY: token}
+
+
+def decrypt_payload(file_path: str, data, default=None):
+    """
+    Расшифровывает файл данных, зашифрованный целиком. Legacy-данные в открытом
+    виде (не обёртка) возвращаются как есть. При ошибке расшифровки возвращает
+    default (чтобы модуль не падал), а не «сырую» обёртку.
+    """
+    if not isinstance(data, dict) or _ENC_KEY not in data:
+        return data  # legacy / не зашифровано
+    cipher = get_cipher()
+    if cipher is None:
+        logger.error(
+            "🔓 Найдены зашифрованные данные (%s), но шифр недоступен — "
+            "возвращаю пустое значение. Проверьте ключ/зависимость 'cryptography'.",
+            file_path,
+        )
+        return default
+    try:
+        from cryptography.fernet import InvalidToken
+    except ImportError:
+        return default
+    try:
+        raw = cipher.decrypt(data[_ENC_KEY].encode("utf-8"))
+        return json.loads(raw.decode("utf-8"))
+    except (InvalidToken, ValueError, TypeError):
+        logger.error(
+            "🔐 Не удалось расшифровать данные (%s) — возможно, изменился ключ "
+            "шифрования (bot_settings/.secret_key).",
+            file_path,
+        )
+        return default
