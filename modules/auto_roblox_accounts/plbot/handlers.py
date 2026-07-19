@@ -221,8 +221,8 @@ def process_new_deal(plbot, event: NewDealEvent):
                 email_password = client.get_email_password(chosen["id"])
                 if email_password:
                     account_data["email_password"] = email_password
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning(f"{PREFIX} Не удалось получить пароль от почты (LZT {chosen['id']}): {e}")
 
         deliver_account(
             plbot,
@@ -347,7 +347,7 @@ async def on_new_deal(plbot, event: NewDealEvent):
         if not config.get("enabled", True):
             return
         process_new_deal(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_deal: {traceback.format_exc()}")
 
 

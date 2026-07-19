@@ -11,7 +11,7 @@ logger = getLogger(f"{NAME}.telegram")
 async def on_telegram_bot_init(tgbot: TelegramBot) -> None:
     try:
         main_menu_commands = await tgbot.bot.get_my_commands()
-        steam_menu_commands = [BotCommand(command=f"/autosteamrental", description=f"🎮 Управление {NAME}")]
+        steam_menu_commands = [BotCommand(command="/autosteamrental", description=f"🎮 Управление {NAME}")]
         await tgbot.bot.set_my_commands(list(main_menu_commands + steam_menu_commands))
     except Exception:
         pass

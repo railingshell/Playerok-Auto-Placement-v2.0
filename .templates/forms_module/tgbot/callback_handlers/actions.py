@@ -31,7 +31,7 @@ async def callback_forms_enter_messages_page(callback: CallbackQuery, state: FSM
     await state.set_state(states.FORMS_MessagesStates.entering_page)
     await throw_float_message(state=state, 
                               message=callback.message, 
-                              text=templ.settings_mess_float_text(f"📃 Введите номер страницы для перехода ↓"), 
+                              text=templ.settings_mess_float_text("📃 Введите номер страницы для перехода ↓"), 
                               reply_markup=main_templ.back_kb(calls.FORMS_MessagesPagination(page=last_page).pack()))
 
 @router.callback_query(F.data == "forms_switch_message_enabled")

@@ -169,7 +169,7 @@ def profile_page_kb(profile_id: str):
 
 
 def blacklist_text():
-    txt = textwrap.dedent(f"""
+    txt = textwrap.dedent("""
         🚫 <b>Чёрные списки</b>
 
         Выберите тип списка для управления.

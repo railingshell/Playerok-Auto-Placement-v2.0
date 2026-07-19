@@ -1,4 +1,3 @@
-import os
 import re
 import time
 import json
@@ -289,8 +288,8 @@ def expire_rentals():
             if text:
                 try:
                     plbot.send_message(rental.get("deal_id"), text)
-                except Exception:
-                    pass
+                except Exception as e:
+                    logger.warning(f"{PREFIX} Не удалось отправить сообщение об окончании аренды: {e}")
 
 
 def run_in_thread_safe(func: callable, sleep_after_seconds: float = 0,
@@ -371,7 +370,7 @@ async def on_new_deal(plbot, event: NewDealEvent):
         if not config.get("enabled", True):
             return
         process_new_deal(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_deal: {traceback.format_exc()}")
 
 
@@ -384,7 +383,7 @@ async def on_new_message(plbot, event: NewMessageEvent):
         return
     try:
         handle_steamguard_command(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_message: {traceback.format_exc()}")
 
 
@@ -395,7 +394,7 @@ async def on_new_review(plbot, event: NewReviewEvent):
         return
     try:
         handle_review(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_review: {traceback.format_exc()}")
 
 

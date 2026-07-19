@@ -1,4 +1,3 @@
-import os
 import re
 import time
 import json
@@ -208,7 +207,7 @@ async def on_new_deal(plbot, event: NewDealEvent):
         if not config.get("enabled", True):
             return
         process_new_deal(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_deal: {traceback.format_exc()}")
 
 
@@ -221,7 +220,7 @@ async def on_new_message(plbot, event: NewMessageEvent):
         return
     try:
         handle_steamguard_command(plbot, event)
-    except Exception as e:
+    except Exception:
         logger.error(f"{PREFIX} Ошибка в on_new_message: {traceback.format_exc()}")
 
 
