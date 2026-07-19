@@ -7,6 +7,9 @@ logs/
 .secret_key
 *.secret_key
 
+# Local backups (contain secrets — never commit!)
+backups/
+
 # Tooling caches
 .pytest_cache/
 .ruff_cache/
