@@ -521,7 +521,7 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
                 
                 return name, description, version
             except Exception as e:
-                raise Exception(f"❌ Ошибка при инициализации модуля {os.path.basename(dest)}: <blockquote>{e}</blockquote>")
+                raise Exception(f"❌ Ошибка при инициализации модуля {os.path.basename(dest)}: <blockquote>{e}</blockquote>") from e
 
         if file_name.lower().endswith('.zip'):
             archive = zipfile.ZipFile(temp_path)

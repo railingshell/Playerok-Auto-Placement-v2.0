@@ -1,5 +1,5 @@
 """Тесты логики валидации и восстановления конфигов (settings.py)."""
-from settings import validate_config, restore_config
+from settings import validate_config, restore_config, get_json
 
 
 DEFAULT = {
@@ -51,3 +51,18 @@ def test_restore_config_does_not_mutate_input():
     partial = {"playerok": {"api": {"cookies": "x"}}}
     restore_config(partial, DEFAULT)
     assert "timeout" not in partial["playerok"]["api"]
+
+
+def test_get_json_returns_default_on_corrupt_file(tmp_path):
+    # Повреждённый JSON не должен ронять бота — возвращается дефолт
+    path = tmp_path / "cfg.json"
+    path.write_text("{ broken json ", encoding="utf-8")
+    result = get_json(str(path), {"a": 1}, need_restore=True)
+    assert result == {"a": 1}
+
+
+def test_get_json_reads_valid_file(tmp_path):
+    path = tmp_path / "cfg.json"
+    path.write_text('{"a": 1, "b": 2}', encoding="utf-8")
+    result = get_json(str(path), {"a": 0}, need_restore=False)
+    assert result == {"a": 1, "b": 2}
