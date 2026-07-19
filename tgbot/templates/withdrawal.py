@@ -72,7 +72,7 @@ def withdrawal_kb(card: UserBankCard = None, sbp_bank: SBPBankMember = None):
         details = "Не указано"
 
     rows = [
-        [InlineKeyboardButton(text=f"💸 Создать вывод", callback_data="confirm_withdrawal")],
+        [InlineKeyboardButton(text="💸 Создать вывод", callback_data="confirm_withdrawal")],
         [InlineKeyboardButton(text=f"💡 Включено: {enabled}", callback_data="switch_auto_withdrawal_enabled")],
         [InlineKeyboardButton(text=f"⏰ Интервал: {interval} сек.", callback_data="enter_auto_withdrawal_interval")],
         [InlineKeyboardButton(text=f"💳 Реквизиты: {details}", callback_data=calls.BankCardsPagination(page=0).pack())],

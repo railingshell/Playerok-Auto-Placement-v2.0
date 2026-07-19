@@ -1,7 +1,7 @@
 import textwrap
 import pytz
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from playerokapi.types import ItemDeal
 from playerokapi.enums import ItemDealDirections, ItemDealStatuses, MessageTemplateTypes
@@ -59,7 +59,7 @@ def deal_text(deal: ItemDeal):
     
     txt = textwrap.dedent(f"""
         <b>📄📋 Страница сделки</b>
-        \n<b>👤 Покупатель:</b> {username}\n<b>🏷️ Статус:</b> {status_str}
+        \n<b>👤 Покупатель:</b> {username}\n<b>🏷️ Статус:</b> {status_sym} {status_str}
         \n<b>🛍️ Товар:</b> {item_name} <a href="{item_image}">(Изображение)</a>\n<b>💰 Цена:</b> {item_price}₽ {problem}
         \n{data_str}
         \n<b>📅 Дата создания:</b> {date}

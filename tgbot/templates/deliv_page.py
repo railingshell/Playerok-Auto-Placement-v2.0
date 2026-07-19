@@ -63,11 +63,3 @@ def deliv_page_float_text(placeholder: str):
         \n{placeholder}
     """)
     return txt
-
-
-def deliv_page_float_text(placeholder: str):
-    txt = textwrap.dedent(f"""
-        <b>📄🚀 Страница авто-выдачи</b>
-        \n{placeholder}
-    """)
-    return txt

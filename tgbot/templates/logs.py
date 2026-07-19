@@ -1,6 +1,5 @@
 import textwrap
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from datetime import datetime
 
 from settings import Settings as sett
 
@@ -26,7 +25,7 @@ def logs_kb():
 
     rows = [
         [InlineKeyboardButton(text=f"📄 Макс. размер файла: {max_file_size} MB", callback_data="enter_logs_max_file_size")],
-        [InlineKeyboardButton(text=f"📔 Получить логи", callback_data="select_logs_file_lines")],
+        [InlineKeyboardButton(text="📔 Получить логи", callback_data="select_logs_file_lines")],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
@@ -36,12 +35,12 @@ def logs_kb():
 def logs_file_lines_kb():
     rows = [
         [
-        InlineKeyboardButton(text=f"📗 Последние 100 строк", callback_data=calls.SendLogsFile(lines=100).pack()),
-        InlineKeyboardButton(text=f"📘 Последние 250 строк", callback_data=calls.SendLogsFile(lines=250).pack())
+        InlineKeyboardButton(text="📗 Последние 100 строк", callback_data=calls.SendLogsFile(lines=100).pack()),
+        InlineKeyboardButton(text="📘 Последние 250 строк", callback_data=calls.SendLogsFile(lines=250).pack())
         ],
         [
-        InlineKeyboardButton(text=f"📕 Последние 1000 строк", callback_data=calls.SendLogsFile(lines=1000).pack()),
-        InlineKeyboardButton(text=f"📖 Весь файл", callback_data=calls.SendLogsFile(lines=-1).pack())
+        InlineKeyboardButton(text="📕 Последние 1000 строк", callback_data=calls.SendLogsFile(lines=1000).pack()),
+        InlineKeyboardButton(text="📖 Весь файл", callback_data=calls.SendLogsFile(lines=-1).pack())
         ],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="logs").pack())]
     ]

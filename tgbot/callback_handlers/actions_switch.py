@@ -116,7 +116,6 @@ async def callback_switch_auto_complete_deals_all(callback: CallbackQuery, state
 @router.callback_query(F.data == "switch_auto_delivery_piece")
 async def callback_switch_auto_delivery_piece(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
-    last_page = data.get("last_page", 0)
     index = data.get("auto_delivery_index", 0)
 
     auto_deliveries = sett.get("auto_deliveries")

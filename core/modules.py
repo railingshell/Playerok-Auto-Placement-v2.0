@@ -8,7 +8,6 @@ from colorama import Fore
 from dataclasses import dataclass
 from logging import getLogger
 
-from __init__ import ACCENT_COLOR
 from core.handlers import (
     register_bot_event_handlers, 
     register_playerok_event_handlers, 
@@ -77,7 +76,7 @@ def get_module_by_uuid(module_uuid: UUID) -> Module | None:
     :rtype: `core.modules.Module` or `None`
     """
     try: return [module for module in loaded_modules if module.uuid == module_uuid][0]
-    except: return None
+    except Exception: return None
 
 
 async def _enable_module(module: Module) -> bool:
@@ -221,7 +220,7 @@ def load_modules() -> list[Module]:
                     _dir_name=name
                 )
                 modules.append(module_data)
-            except Exception as e:
+            except Exception:
                 logger.error(f"{Fore.LIGHTRED_EX}Ошибка при загрузке модуля {name}: {Fore.WHITE}{traceback.format_exc()}")
     
     return modules
@@ -249,7 +248,7 @@ async def connect_modules(modules: list[Module]):
     for module in modules:
         try:
             await _enable_module(module)
-        except Exception as e:
+        except Exception:
             logger.error(f"{Fore.LIGHTRED_EX}Ошибка при подключении модуля {module.meta.name}: {Fore.WHITE}{traceback.format_exc()}")
     
     connected_modules = [module for module in loaded_modules if module.enabled]

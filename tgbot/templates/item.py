@@ -1,7 +1,7 @@
 import textwrap
 import pytz
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from playerokapi.types import MyItem, ItemPriorityStatus
 from playerokapi.enums import ItemStatuses, PriorityTypes
@@ -10,9 +10,6 @@ from .. import callback_datas as calls
 
 
 def item_text(item: MyItem):
-    from plbot.playerokbot import get_playerok_bot as plbot
-    acc = plbot().account
-
     name = item.name
     desc = item.description
     image = item.attachments[0].url
@@ -67,7 +64,7 @@ def item_text(item: MyItem):
         <b>📄🛍️ Страница товара</b>
         \n<b>📂 Категория:</b> {game} ({cat})\n<b>💰 Цена:</b> {price}
         \n<b>🏷️ Название:</b> {name} <a href="{image}">(Изображение)</a>\n<b>📃 Описание:</b> <blockquote>{desc}</blockquote>
-        \n<b>👀 Статус:</b> {status_str}\n<b>🚀 Приоритет:</b> {priority}
+        \n<b>👀 Статус:</b> {status_sym} {status_str}\n<b>🚀 Приоритет:</b> {priority}
         \n{data_str}
         \n<b>📅 Дата создания:</b> {date}
     """)

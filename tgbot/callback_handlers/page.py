@@ -67,7 +67,7 @@ async def callback_message_page(callback: CallbackQuery, callback_data: calls.Me
             reply_markup=templ.mess_page_kb(message_id, last_page),
             callback=callback
         )
-    except:
+    except Exception:
         import traceback
         traceback.print_exc()
 

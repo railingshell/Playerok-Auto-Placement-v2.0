@@ -26,7 +26,7 @@ async def handler_waiting_for_auto_deliveries_page(message: types.Message, state
         await throw_float_message(
             state=state,
             message=message,
-            text=templ.delivs_float_text(f"📃 Введите номер страницы для перехода:"),
+            text=templ.delivs_float_text("📃 Введите номер страницы для перехода:"),
             reply_markup=templ.delivs_kb(page)
         )
     except Exception as e:
@@ -59,7 +59,7 @@ async def handler_waiting_for_new_auto_delivery_keyphrases(message: types.Messag
         await throw_float_message(
             state=state,
             message=message,
-            text=templ.new_deliv_float_text(f"🛒 Выберите <b>тип авто-выдачи</b>:"),
+            text=templ.new_deliv_float_text("🛒 Выберите <b>тип авто-выдачи</b>:"),
             reply_markup=templ.new_deliv_piece_kb(last_page)
         )
     except Exception as e:

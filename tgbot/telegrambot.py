@@ -32,7 +32,7 @@ def get_telegram_bot_loop() -> asyncio.AbstractEventLoop | None:
 class TelegramBot:
     def __new__(cls, *args, **kwargs) -> TelegramBot:
         if not hasattr(cls, "instance"):
-            cls.instance = super(TelegramBot, cls).__new__(cls)
+            cls.instance = super().__new__(cls)
         return getattr(cls, "instance")
 
     def __init__(self):
@@ -66,12 +66,12 @@ class TelegramBot:
                 BotCommand(command="/restart", description="🔄️ Перезагрузить")
             ]
             await self.bot.set_my_commands(main_menu_commands)
-        except:
+        except Exception:
             pass
 
     async def _set_short_description(self):
         try:
-            short_description = textwrap.dedent(f"""
+            short_description = textwrap.dedent("""
                 PAP — Playerok Auto Placement
 
                 📢 @rogaartproduction
@@ -79,12 +79,12 @@ class TelegramBot:
                 🧑‍💻 @lovesort (rogaart)
             """)
             await self.bot.set_my_short_description(short_description=short_description)
-        except:
+        except Exception:
             pass
 
     async def _set_description(self):
         try:
-            description = textwrap.dedent(f"""
+            description = textwrap.dedent("""
                 💙 𝐏𝐀𝐏 — 𝐏𝐥𝐚𝐲𝐞𝐫𝐨𝐤 𝐀𝐮𝐭𝐨 𝐏𝐥𝐚𝐜𝐞𝐦𝐞𝐧𝐭 💙
 
                 🟢 Вечный онлайн
@@ -106,7 +106,7 @@ class TelegramBot:
                 🧑‍💻 Автор: @lovesort (rogaart)
             """)
             await self.bot.set_my_description(description=description)
-        except:
+        except Exception:
             pass
 
     async def run_bot(self, from_tg=False):
@@ -149,7 +149,7 @@ class TelegramBot:
         while True:
             await self.bot.delete_webhook(drop_pending_updates=True)
             try: await self.dp.start_polling(self.bot, skip_updates=True, handle_signals=False)
-            except: pass
+            except Exception: pass
 
     async def notify_bot_restarted(self):
         config = sett.get("config")

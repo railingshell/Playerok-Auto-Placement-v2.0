@@ -85,7 +85,7 @@ async def callback_change_password(callback: CallbackQuery, state: FSMContext):
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.signed_users_float_text(f"✅ Пароль <b>успешно изменён</b>"),
+        text=templ.signed_users_float_text("✅ Пароль <b>успешно изменён</b>"),
         reply_markup=templ.back_kb(calls.SignedUsersPagination(page=last_page).pack()),
         callback=callback
     )
@@ -285,7 +285,7 @@ async def callback_remember_chat_id(callback: CallbackQuery, callback_data: call
         await throw_float_message(
             state=state,
             message=callback.message,
-            text=templ.do_action_text(f"💬 Введите <b>сообщение</b> для отправки в чат:"),
+            text=templ.do_action_text("💬 Введите <b>сообщение</b> для отправки в чат:"),
             reply_markup=templ.destroy_kb(),
             callback=callback,
             reply_to=callback.message.message_id
@@ -295,7 +295,7 @@ async def callback_remember_chat_id(callback: CallbackQuery, callback_data: call
         await throw_float_message(
             state=state,
             message=callback.message,
-            text=templ.do_action_text(f"⚡ Выберите <b>быстрый ответ</b> для отправки:"),
+            text=templ.do_action_text("⚡ Выберите <b>быстрый ответ</b> для отправки:"),
             reply_markup=templ.fast_sel_fast_reply_kb(chat_id=chat_id, page=0),
             callback=callback,
             reply_to=callback.message.message_id
@@ -347,7 +347,7 @@ async def callback_select_sbp_bank(callback: CallbackQuery, callback_data: calls
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.withdrawal_sbp_float_text(f"📲 Введите <b>номер телефона</b>, на который нужно будет совершать вывод:"),
+        text=templ.withdrawal_sbp_float_text("📲 Введите <b>номер телефона</b>, на который нужно будет совершать вывод:"),
         reply_markup=templ.back_kb(calls.MenuNavigation(to="withdrawal").pack())
     )
 
@@ -368,7 +368,7 @@ async def callback_set_new_deliv_piece(callback: CallbackQuery, callback_data: c
             state=state,
             message=callback.message,
             text=templ.new_deliv_float_text(
-                f"📦 Отправьте <b>товары</b> для поштучной выдачи (1 строка = 1 товар, можно прислать .txt файл с товарами):"
+                "📦 Отправьте <b>товары</b> для поштучной выдачи (1 строка = 1 товар, можно прислать .txt файл с товарами):"
             ),
             reply_markup=templ.back_kb(calls.AutoDeliveriesPagination(page=last_page).pack()),
             callback=callback
@@ -379,7 +379,7 @@ async def callback_set_new_deliv_piece(callback: CallbackQuery, callback_data: c
             state=state,
             message=callback.message,
             text=templ.new_deliv_float_text(
-                f"💬 Введите <b>сообщение авто-выдачи</b>, которое будет отправляться после покупки товара:"
+                "💬 Введите <b>сообщение авто-выдачи</b>, которое будет отправляться после покупки товара:"
             ),
             reply_markup=templ.back_kb(calls.AutoDeliveriesPagination(page=last_page).pack()),
             callback=callback
@@ -464,7 +464,7 @@ async def callback_bump_items(callback: CallbackQuery, state: FSMContext):
         await throw_float_message(
             state=state,
             message=callback.message,
-            text=templ.bump_float_text(f"⬆️ Идёт <b>поднятие товаров</b>, ожидайте (см. консоль)..."),
+            text=templ.bump_float_text("⬆️ Идёт <b>поднятие товаров</b>, ожидайте (см. консоль)..."),
             reply_markup=templ.back_kb(calls.MenuNavigation(to="bump").pack())
         )
 
@@ -502,7 +502,7 @@ async def callback_request_withdrawal(callback: CallbackQuery, state: FSMContext
         await throw_float_message(
             state=state,
             message=callback.message,
-            text=templ.withdrawal_float_text(f"💸 Создаю <b>транзакцию на вывод средств</b>, ожидайте (см. консоль)..."),
+            text=templ.withdrawal_float_text("💸 Создаю <b>транзакцию на вывод средств</b>, ожидайте (см. консоль)..."),
             reply_markup=templ.back_kb(calls.MenuNavigation(to="withdrawal").pack())
         )
 
@@ -808,7 +808,7 @@ async def callback_add_new_auto_delivery(callback: CallbackQuery, state: FSMCont
         await throw_float_message(
             state=state,
             message=callback.message,
-            text=templ.new_deliv_float_text(f"✅ <b>Авто-выдача</b> была успешно добавлена"),
+            text=templ.new_deliv_float_text("✅ <b>Авто-выдача</b> была успешно добавлена"),
             reply_markup=templ.back_kb(calls.AutoDeliveriesPagination(page=last_page).pack())
         )
     except Exception as e:
@@ -986,7 +986,7 @@ async def callback_send_logs_file(callback: CallbackQuery, callback_data: calls.
         txt_file = os.path.join(src_dir, "logs", "Лог работы.txt")
         
         if lines > 0:
-            with open(logs_file, 'r', encoding='utf-8') as f:
+            with open(logs_file, encoding='utf-8') as f:
                 last_lines = deque(f, lines)
             with open(txt_file, 'w', encoding='utf-8') as f:
                 f.writelines(last_lines)
@@ -999,7 +999,7 @@ async def callback_send_logs_file(callback: CallbackQuery, callback_data: calls.
         )
         try:
             await callback.bot.answer_callback_query(callback.id, cache_time=0)
-        except:
+        except Exception:
             pass
 
         await throw_float_message(
@@ -1011,7 +1011,7 @@ async def callback_send_logs_file(callback: CallbackQuery, callback_data: calls.
     finally:
         try:
             os.remove(txt_file)
-        except:
+        except Exception:
             pass
 
 

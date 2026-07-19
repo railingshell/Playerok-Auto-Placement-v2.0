@@ -34,7 +34,7 @@ async def _load_withdrawal_info(state: FSMContext):
         await state.update_data(bank_cards=card_list.bank_cards)
         if credentials_type == "card":
             card = [card for card in card_list.bank_cards if card.id == card_id][0]
-    except: 
+    except Exception: 
         pass
 
     try: 
@@ -42,7 +42,7 @@ async def _load_withdrawal_info(state: FSMContext):
         await state.update_data(sbp_banks=sbp_banks)
         if credentials_type == "sbp":
             sbp_bank = [bank for bank in sbp_banks if bank.id == sbp_bank_id][0]
-    except: 
+    except Exception: 
         pass
 
     return card, sbp_bank

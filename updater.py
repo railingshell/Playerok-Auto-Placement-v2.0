@@ -174,7 +174,7 @@ async def check_new_releases_task(interval=180):
                     ),
                     tgbot_loop()
                 )
-        except:
+        except Exception:
             pass
 
 

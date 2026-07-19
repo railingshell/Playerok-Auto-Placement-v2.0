@@ -72,7 +72,7 @@ async def _send_mess(message: types.Message, state: FSMContext):
     
     for path in photo_paths:
         try: os.remove(path)
-        except: pass
+        except Exception: pass
 
     return acc, chat, sent_msg
 
@@ -121,7 +121,7 @@ async def handler_waiting_for_chat_answer_message(message: types.Message, state:
                 calls.ChatPage(id=chat.id),
                 state
             )
-        except:
+        except Exception:
             await throw_float_message(
                 state=state,
                 message=message,
@@ -307,7 +307,7 @@ async def handler_waiting_for_trans_from_date(message: types.Message, state: FSM
             await callback_change_transactions_filter(
                 callback, calls.ChangeTransactionsFilter(from_dt=message.text), state
             )
-        except:
+        except Exception:
             await callback_transactions_filter(callback, state)
     except Exception as e:
         await throw_float_message(
@@ -334,7 +334,7 @@ async def handler_waiting_for_trans_to_date(message: types.Message, state: FSMCo
             await callback_change_transactions_filter(
                 callback, calls.ChangeTransactionsFilter(to_dt=message.text), state
             )
-        except:
+        except Exception:
             await callback_transactions_filter(callback, state)
     except Exception as e:
         await throw_float_message(

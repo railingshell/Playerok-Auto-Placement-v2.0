@@ -4,6 +4,8 @@ import copy
 import tempfile
 from dataclasses import dataclass
 
+from core.secrets import decrypt_config, encrypt_config
+
 
 @dataclass
 class SettingsFile:
@@ -281,7 +283,7 @@ def get_json(path: str, default: dict, need_restore: bool = True) -> dict:
         os.makedirs(folder_path)
     
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, encoding='utf-8') as f:
             config = json.load(f)
         if need_restore:
             new_config = restore_config(config, default)
@@ -289,7 +291,7 @@ def get_json(path: str, default: dict, need_restore: bool = True) -> dict:
                 config = new_config
                 with open(path, 'w', encoding='utf-8') as f:
                     json.dump(config, f, indent=4, ensure_ascii=False)
-    except:
+    except Exception:
         config = default
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
@@ -328,12 +330,13 @@ class Settings:
     def get(name: str, data: list[SettingsFile] = DATA) -> dict | list | None:
         try: 
             file = [file for file in data if file.name == name][0]
-            return get_json(file.path, file.default, file.need_restore)
-        except: return None
+            config = get_json(file.path, file.default, file.need_restore)
+            return decrypt_config(name, config)
+        except Exception: return None
 
     @staticmethod
     def set(name: str, new: list | dict, data: list[SettingsFile] = DATA):
         try: 
             file = [file for file in data if file.name == name][0]
-            set_json(file.path, new)
-        except: pass
+            set_json(file.path, encrypt_config(name, new))
+        except Exception: pass

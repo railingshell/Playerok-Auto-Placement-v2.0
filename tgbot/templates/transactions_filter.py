@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from playerokapi.enums import TransactionStatuses, TransactionOperations, TransactionProviderIds
@@ -12,7 +12,7 @@ def transactions_filter_kb(filter, last_page=0):
     st3 = "・" if filter["status"] == TransactionStatuses.CONFIRMED else ""
     st4 = "・" if filter["status"] == TransactionStatuses.ROLLED_BACK else ""
     st5 = "・" if filter["status"] == TransactionStatuses.FAILED else ""
-    st6 = "・" if filter["status"] == None else ""
+    st6 = "・" if filter["status"] is None else ""
     
     op1 = "・" if filter["operation"] == TransactionOperations.DEPOSIT else ""
     op2 = "・" if filter["operation"] == TransactionOperations.BUY else ""
@@ -23,7 +23,7 @@ def transactions_filter_kb(filter, last_page=0):
     op7 = "・" if filter["operation"] == TransactionOperations.MANUAL_BALANCE_DECREASE else ""
     op8 = "・" if filter["operation"] == TransactionOperations.REFERRAL_BONUS else ""
     op9 = "・" if filter["operation"] == TransactionOperations.STEAM_DEPOSIT else ""
-    op10 = "・" if filter["operation"] == None else ""
+    op10 = "・" if filter["operation"] is None else ""
 
     pr1 = "・" if filter["provider_id"] == TransactionProviderIds.LOCAL else ""
     pr2 = "・" if filter["provider_id"] == TransactionProviderIds.SBP else ""
@@ -33,7 +33,7 @@ def transactions_filter_kb(filter, last_page=0):
     pr6 = "・" if filter["provider_id"] == TransactionProviderIds.YMONEY else ""
     pr7 = "・" if filter["provider_id"] == TransactionProviderIds.USDT else ""
     pr8 = "・" if filter["provider_id"] == TransactionProviderIds.PENDING_INCOME else ""
-    pr9 = "・" if filter["provider_id"] == None else ""
+    pr9 = "・" if filter["provider_id"] is None else ""
     
     min_sym = "・" if (filter["min_value"] or 0) > 0 else ""
     min_val = f"{filter['min_value']}₽" if (filter["min_value"] or 0) > 0 else "❌"
@@ -41,10 +41,10 @@ def transactions_filter_kb(filter, last_page=0):
     max_val = f"{filter['max_value']}₽" if (filter["max_value"] or 0) > 0 else "❌"
     val = "・" if not any((filter["min_value"], filter["max_value"])) else ""
 
-    from_sym = "・" if filter["from_date"] != None else ""
-    from_dt = f"{datetime.strftime(filter['from_date'], '%d.%m.%Y')}" if filter["from_date"] != None else "❌"
-    to_sym = "・" if filter["to_date"] != None else ""
-    to_dt = f"{datetime.strftime(filter['to_date'], '%d.%m.%Y')}" if filter["to_date"] != None else "❌"
+    from_sym = "・" if filter["from_date"] is not None else ""
+    from_dt = f"{datetime.strftime(filter['from_date'], '%d.%m.%Y')}" if filter["from_date"] is not None else "❌"
+    to_sym = "・" if filter["to_date"] is not None else ""
+    to_dt = f"{datetime.strftime(filter['to_date'], '%d.%m.%Y')}" if filter["to_date"] is not None else "❌"
     dt = "・" if not any((filter["from_date"], filter["to_date"])) else ""
 
     rows = [

@@ -1,7 +1,7 @@
 import pytz
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, UTC
 from collections import Counter
 import base64
 import string
@@ -66,7 +66,7 @@ def get_tg_log_chats():
 def github_str_to_dt(date_str: str) -> datetime:
     return datetime.fromisoformat(
         date_str.replace("Z", "+00:00")
-    ).replace(tzinfo=timezone.utc).astimezone(
+    ).replace(tzinfo=UTC).astimezone(
         pytz.timezone("Europe/Moscow")
     )
 
@@ -115,7 +115,7 @@ def is_pl_account_working() -> tuple[bool, str]:
         return True, ""
     except BotCheckDetectedException:
         return False, "Бот-проверка заметила подозрительную активность при подключении к аккаунту Playerok. Чтобы продолжить работу, вам нужно указать актуальные Cookie-данные вашего авторизованного Playerok аккаунта."
-    except:
+    except Exception:
         return False, ""
 
 
@@ -129,7 +129,7 @@ def is_pl_account_banned() -> bool:
             proxy=config["playerok"]["api"]["proxy"] or None
         ).get()
         return acc.profile.is_blocked
-    except:
+    except Exception:
         return False
 
 

@@ -208,7 +208,7 @@ class Account:
         """
         try: 
             x_gql_op = payload.get("operationName", "viewer")
-        except: 
+        except Exception: 
             x_gql_op = "viewer"
         
         _headers = {
@@ -303,7 +303,7 @@ class Account:
         
         json = {}
         try: json = resp.json()
-        except: pass
+        except Exception: pass
         
         if "errors" in json:
             raise RequestPlayerokError(resp)

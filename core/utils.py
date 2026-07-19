@@ -122,7 +122,7 @@ def is_package_installed(requirement_string: str) -> bool:
         pkg_resources.require(requirement)
 
         return True
-    except:
+    except Exception:
         return False
 
 
@@ -138,7 +138,7 @@ def install_requirements(requirements_path: str):
         if not os.path.exists(requirements_path):
             return
 
-        with open(requirements_path, "r", encoding="utf-8") as f:
+        with open(requirements_path, encoding="utf-8") as f:
             lines = f.readlines()
 
         for line in lines:
@@ -151,7 +151,6 @@ def install_requirements(requirements_path: str):
                 continue
 
             pkg_name = parts[0]
-            extra_args = parts[1:]
 
             if not is_package_installed(pkg_name):
                 subprocess.check_call([
@@ -189,7 +188,7 @@ def patch_requests():
             
             retry_hdr = resp.headers.get("Retry-After")
             try: delay = float(retry_hdr) if retry_hdr else min(120.0, 5.0 * (2 ** attempt))
-            except: delay = min(120.0, 5.0 * (2 ** attempt))
+            except Exception: delay = min(120.0, 5.0 * (2 ** attempt))
             
             logger.debug(f"{url} — {err}. Пробую отправить запрос снова через {delay} сек.")
             delay += random.uniform(0.2, 0.8)  # небольшой джиттер

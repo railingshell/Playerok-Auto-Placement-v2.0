@@ -39,9 +39,9 @@ def conn_kb():
         [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
     ]
     if config["playerok"]["api"]["proxy"]: 
-        rows[0].append(InlineKeyboardButton(text=f"❌ Убрать прокси", callback_data="clean_pl_proxy"))
+        rows[0].append(InlineKeyboardButton(text="❌ Убрать прокси", callback_data="clean_pl_proxy"))
     if config["telegram"]["api"]["proxy"]: 
-        rows[1].append(InlineKeyboardButton(text=f"❌ Убрать прокси", callback_data="clean_tg_proxy"))
+        rows[1].append(InlineKeyboardButton(text="❌ Убрать прокси", callback_data="clean_tg_proxy"))
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb
 

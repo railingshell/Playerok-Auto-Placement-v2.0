@@ -7,7 +7,7 @@ REPO = "railingshell/Playerok-Auto-Placement-v2.0"
 
 
 def get_version():
-    with open("__init__.py", "r", encoding="utf-8") as f:
+    with open("__init__.py", encoding="utf-8") as f:
         content = f.read()
     match = re.search(r'VERSION\s*=\s*"([^"]+)"', content)
     if not match:

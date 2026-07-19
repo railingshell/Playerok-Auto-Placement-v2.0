@@ -67,7 +67,7 @@ def get_playerok_bot() -> PlayerokBot | None:
 class PlayerokBot:
     def __new__(cls, *args, **kwargs) -> PlayerokBot:
         if not hasattr(cls, "instance"):
-            cls.instance = super(PlayerokBot, cls).__new__(cls)
+            cls.instance = super().__new__(cls)
         return getattr(cls, "instance")
 
     def __init__(self):
@@ -123,7 +123,7 @@ class PlayerokBot:
             if user.is_blocked:
                 logger.critical("")
                 logger.critical(f"{Fore.LIGHTRED_EX}Ваш Playerok аккаунт был заблокирован! К сожалению, я не могу продолжать работу на заблокированном аккаунте...")
-                logger.critical(f"Напишите в тех. поддержку Playerok, чтобы узнать причину бана и как можно быстрее решить эту проблему.")
+                logger.critical("Напишите в тех. поддержку Playerok, чтобы узнать причину бана и как можно быстрее решить эту проблему.")
                 logger.critical("")
                 shutdown()
         except Exception as e:
@@ -164,7 +164,7 @@ class PlayerokBot:
         try:
             msg = self._format_msg_text("\n".join(message_lines), **kwargs)
             return msg
-        except:
+        except Exception:
             pass
         
         return f"Не удалось получить сообщение {message_name}"
@@ -374,7 +374,7 @@ class PlayerokBot:
             ):
                 if not isinstance(item, MyItem):
                     try: item = self.account.get_item(item.id)
-                    except: return
+                    except Exception: return
                     
                 time.sleep(1)
                 statuses = self.account.get_item_priority_statuses(item.id, item.raw_price)
@@ -466,7 +466,7 @@ class PlayerokBot:
             ):
                 if not isinstance(item, MyItem):
                     try: item = self.account.get_item(item.id)
-                    except: return
+                    except Exception: return
                     
                 time.sleep(1)
                 statuses = self.account.get_item_priority_statuses(item.id, item.raw_price)
@@ -769,7 +769,7 @@ class PlayerokBot:
                         imgs.append(f'<a href="{file.url}">*Изображение {i}*</a>')
                     text = ", ".join(imgs) + ((" " + text) if text else "")
 
-                text = text or f"<i>Без сообщения</i>"
+                text = text or "<i>Без сообщения</i>"
                 
                 self.log_to_tg(
                     log_text(
@@ -891,7 +891,7 @@ class PlayerokBot:
             return
             
         try: event.deal.item = self.account.get_item(event.deal.item.id)
-        except: pass
+        except Exception: pass
 
         self.cached_orders[event.deal.id] = {
             "id": event.deal.id,
@@ -949,7 +949,7 @@ class PlayerokBot:
                     if piece:
                         goods =  auto_delivery.get("goods", [])
                         try: good = goods[0]
-                        except: break
+                        except Exception: break
 
                         mess = self.send_message(event.chat.id, good)
                         if mess:
@@ -975,7 +975,7 @@ class PlayerokBot:
         if self.config["playerok"]["auto_complete_deals"]["enabled"]:
             if not event.deal.item.name:
                 try: event.deal.item = self.account.get_item(event.deal.item.id)
-                except: return
+                except Exception: return
 
             included = any(
                 any(
@@ -1029,7 +1029,7 @@ class PlayerokBot:
                         raise
 
                     break
-                except: 
+                except Exception: 
                     time.sleep(4)
             else:
                 return

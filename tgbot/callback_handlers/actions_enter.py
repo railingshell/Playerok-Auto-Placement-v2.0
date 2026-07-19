@@ -53,7 +53,7 @@ async def callback_enter_new_fast_reply_text(callback: CallbackQuery, state: FSM
         state=state,
         message=callback.message,
         text=templ.new_fast_reply_text(
-            f"💬 Введите <b>текст сообщения</b> быстрого ответа:"
+            "💬 Введите <b>текст сообщения</b> быстрого ответа:"
         ),
         reply_markup=templ.back_kb(calls.FastRepliesPagination(page=last_page).pack())
     )
@@ -72,8 +72,8 @@ async def callback_enter_chat_answer_message(callback: CallbackQuery, state: FSM
         message=callback.message,
         text=templ.chat_float_text(
             chat,
-            f"💬 Введите <b>текст сообщения</b> для ответа:"
-            f"\n\n🖼️ Вы также можете отправить <b>изображения</b>"
+            "💬 Введите <b>текст сообщения</b> для ответа:"
+            "\n\n🖼️ Вы также можете отправить <b>изображения</b>"
         ),
         reply_markup=templ.back_kb(calls.ChatPage(id=chat.id).pack())
     )
@@ -197,8 +197,8 @@ async def callback_enter_new_included_restore_item_keyphrases(callback: Callback
         state=state,
         message=callback.message,
         text=templ.new_restore_included_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, который нужно включить в авто-восстановление "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, который нужно включить в авто-восстановление "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.IncludedRestoreItemsPagination(page=last_page).pack())
     )
@@ -214,8 +214,8 @@ async def callback_enter_new_excluded_restore_item_keyphrases(callback: Callback
         state=state,
         message=callback.message,
         text=templ.new_restore_excluded_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, который нужно исключить из авто-восстановления "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, который нужно исключить из авто-восстановления "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.ExcludedRestoreItemsPagination(page=last_page).pack())
     )
@@ -231,8 +231,8 @@ async def callback_enter_new_included_complete_deal_keyphrases(callback: Callbac
         state=state,
         message=callback.message,
         text=templ.new_complete_included_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, сделку по которому нужно включить в авто-подтверждение "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, сделку по которому нужно включить в авто-подтверждение "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.IncludedCompleteDealsPagination(page=last_page).pack())
     )
@@ -248,8 +248,8 @@ async def callback_enter_new_excluded_complete_deal_keyphrases(callback: Callbac
         state=state,
         message=callback.message,
         text=templ.new_complete_excluded_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, сделку по которому нужно исключить из авто-подтверждения "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, сделку по которому нужно исключить из авто-подтверждения "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.ExcludedCompleteDealsPagination(page=last_page).pack())
     )
@@ -283,8 +283,8 @@ async def callback_enter_new_included_bump_item_keyphrases(callback: CallbackQue
         state=state,
         message=callback.message,
         text=templ.new_bump_included_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, который нужно включить в авто-поднятие "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, который нужно включить в авто-поднятие "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.IncludedBumpItemsPagination(page=last_page).pack())
     )
@@ -300,8 +300,8 @@ async def callback_enter_new_excluded_bump_item_keyphrases(callback: CallbackQue
         state=state,
         message=callback.message,
         text=templ.new_bump_excluded_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, который нужно исключить из авто-поднятия "
-            f"(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, который нужно исключить из авто-поднятия "
+            "(указываются через запятую, например, \"samp аккаунт, со всеми данными\"):"
         ),
         reply_markup=templ.back_kb(calls.ExcludedBumpItemsPagination(page=last_page).pack())
     )
@@ -316,7 +316,7 @@ async def callback_enter_custom_commands_page(callback: CallbackQuery, state: FS
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.comms_float_text(f"📃 Введите номер страницы для перехода:"),
+        text=templ.comms_float_text("📃 Введите номер страницы для перехода:"),
         reply_markup=templ.back_kb(calls.CustomCommandsPagination(page=last_page).pack())
     )
 
@@ -330,7 +330,7 @@ async def callback_enter_new_custom_command(callback: CallbackQuery, state: FSMC
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.new_comm_float_text(f"⌨️ Введите <b>новую команду</b> (например, <code>!тест</code>):"),
+        text=templ.new_comm_float_text("⌨️ Введите <b>новую команду</b> (например, <code>!тест</code>):"),
         reply_markup=templ.back_kb(calls.CustomCommandsPagination(page=last_page).pack())
     )
 
@@ -380,7 +380,7 @@ async def callback_enter_auto_deliveries_page(callback: CallbackQuery, state: FS
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.delivs_float_text(f"📃 Введите номер страницы для перехода:"),
+        text=templ.delivs_float_text("📃 Введите номер страницы для перехода:"),
         reply_markup=templ.back_kb(calls.AutoDeliveriesPagination(page=last_page).pack())
     )
 
@@ -395,8 +395,8 @@ async def callback_enter_new_auto_delivery_keyphrases(callback: CallbackQuery, s
         state=state,
         message=callback.message,
         text=templ.new_deliv_float_text(
-            f"🔑 Введите <b>ключевые фразы</b> названия товара, на который нужно добавить авто-выдачу "
-            f"(указываются через запятую, например, \"telegram подписчики, авто-выдача\"):"
+            "🔑 Введите <b>ключевые фразы</b> названия товара, на который нужно добавить авто-выдачу "
+            "(указываются через запятую, например, \"telegram подписчики, авто-выдача\"):"
         ),
         reply_markup=templ.back_kb(calls.AutoDeliveriesPagination(page=last_page).pack())
     )
@@ -487,7 +487,7 @@ async def callback_enter_auto_delivery_goods_add(callback: CallbackQuery, state:
             state=state,
             message=callback.message,
             text=templ.new_deliv_goods_float_text(
-                f"📦 Отправьте <b>товары</b> для добавления в поштучную выдачу (1 строка = 1 товар, можно прислать .txt файл с товарами):"
+                "📦 Отправьте <b>товары</b> для добавления в поштучную выдачу (1 строка = 1 товар, можно прислать .txt файл с товарами):"
             ),
             reply_markup=templ.back_kb(calls.DelivGoodsPagination(page=last_page).pack())
         )
@@ -528,7 +528,7 @@ async def callback_enter_usdt_address(callback: CallbackQuery, state: FSMContext
         state=state,
         message=callback.message,
         text=templ.withdrawal_usdt_float_text(
-            f"💲 Введите <b>адрес кошелька</b> USDT (TRC20):"
+            "💲 Введите <b>адрес кошелька</b> USDT (TRC20):"
         ),
         reply_markup=templ.back_kb(calls.MenuNavigation(to="withdrawal").pack())
     )
@@ -543,7 +543,7 @@ async def callback_enter_messages_page(callback: CallbackQuery, state: FSMContex
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.mess_float_text(f"📃 Введите номер страницы для перехода:"),
+        text=templ.mess_float_text("📃 Введите номер страницы для перехода:"),
         reply_markup=templ.back_kb(calls.MessagesPagination(page=last_page).pack())
     )
 

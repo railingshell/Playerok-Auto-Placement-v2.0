@@ -32,7 +32,7 @@ async def handler_waiting_for_password(message: types.Message, state: FSMContext
                 text=templ.menu_text(),
                 reply_markup=templ.menu_kb()
             )
-        except:
+        except Exception:
             await message.bot.send_message(
                 chat_id=message.from_user.id,
                 text=templ.menu_text(),
@@ -51,7 +51,7 @@ async def handler_waiting_for_password(message: types.Message, state: FSMContext
                     reply_markup=templ.destroy_kb(),
                     parse_mode="HTML"
                 )
-            except:
+            except Exception:
                 pass
     except Exception as e:
         await throw_float_message(

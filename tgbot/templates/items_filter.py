@@ -20,11 +20,11 @@ def items_filter_kb(filter, last_page=0):
 
     game = filter["game_name"] if filter["game_name"] else "🎮 Выбрать"
     ga1 = "・" if len(filter["game_id"] or "") > 0 else ""
-    ga2 = "・" if filter["game_id"] == None else ""
+    ga2 = "・" if filter["game_id"] is None else ""
 
     cat = filter["category_name"] if filter["category_name"] else "📂 Выбрать" if ga1 else "❌ Выберите игру"
     ca1 = "・" if len(filter["category_id"] or "") > 0 else ""
-    ca2 = "・" if filter["category_id"] == None else ""
+    ca2 = "・" if filter["category_id"] is None else ""
 
     rows = [
         [InlineKeyboardButton(text="━━━  СТАТУСЫ  ━━━", callback_data="null_answer")],

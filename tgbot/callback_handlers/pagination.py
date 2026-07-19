@@ -3,8 +3,7 @@ from aiogram import Router
 from aiogram.types import CallbackQuery
 from aiogram.fsm.context import FSMContext
 
-from settings import Settings as sett
-from playerokapi.enums import MessageTemplateTypes, SortDirections, ReviewStatuses
+from playerokapi.enums import MessageTemplateTypes, SortDirections
 
 from .. import templates as templ
 from .. import callback_datas as calls
@@ -220,7 +219,7 @@ async def callback_fast_sel_fast_replies_pagination(callback: CallbackQuery, cal
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.do_action_text(f"⚡ Выберите <b>быстрый ответ</b> для отправки:"),
+        text=templ.do_action_text("⚡ Выберите <b>быстрый ответ</b> для отправки:"),
         reply_markup=templ.fast_sel_fast_reply_kb(chat_id, page),
         callback=callback
     )
@@ -237,7 +236,7 @@ async def callback_sel_fast_replies_pagination(callback: CallbackQuery, callback
     await throw_float_message(
         state=state,
         message=callback.message,
-        text=templ.do_action_text(f"⚡ Выберите <b>быстрый ответ</b> для отправки:"),
+        text=templ.do_action_text("⚡ Выберите <b>быстрый ответ</b> для отправки:"),
         reply_markup=templ.sel_fast_reply_kb(chat_id, page),
         callback=callback
     )

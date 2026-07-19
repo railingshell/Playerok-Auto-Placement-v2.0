@@ -34,7 +34,7 @@ def fast_replies_kb(page=0):
     for reply in list(fast_replies)[start_offset:end_offset]:
         rows.append([
             InlineKeyboardButton(text=escape_html(reply), callback_data=calls.EnterFastReplyText(index=fast_replies.index(reply)).pack()),
-            InlineKeyboardButton(text=f"🗑️", callback_data=calls.DeleteFastReply(index=fast_replies.index(reply)).pack())
+            InlineKeyboardButton(text="🗑️", callback_data=calls.DeleteFastReply(index=fast_replies.index(reply)).pack())
         ])
 
     if total_pages > 1:

@@ -1,7 +1,6 @@
 import textwrap
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-from __init__ import VERSION
 
 from .. import callback_datas as calls
 
