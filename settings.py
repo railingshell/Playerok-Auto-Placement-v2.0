@@ -331,12 +331,12 @@ class Settings:
         try: 
             file = [file for file in data if file.name == name][0]
             config = get_json(file.path, file.default, file.need_restore)
-            return decrypt_config(name, config)
+            return decrypt_config(file.path, config)
         except Exception: return None
 
     @staticmethod
     def set(name: str, new: list | dict, data: list[SettingsFile] = DATA):
         try: 
             file = [file for file in data if file.name == name][0]
-            set_json(file.path, encrypt_config(name, new))
+            set_json(file.path, encrypt_config(file.path, new))
         except Exception: pass

@@ -30,18 +30,26 @@ _KEY_ENV = "PAP_SECRET_KEY"
 _DISABLE_ENV = "PAP_DISABLE_ENCRYPTION"
 _KEY_PATH = os.path.join("bot_settings", ".secret_key")
 
-# Чувствительные пути внутри каждого файла настроек (по его имени).
-# Только эти значения шифруются; вся остальная структура остаётся читаемой.
+# Чувствительные пути внутри конкретного файла настроек (по его пути).
+# Привязка к пути файла (а не к имени "config") гарантирует, что конфиги
+# модулей, которые тоже называются "config", НЕ будут затронуты.
+# Пароль бота (telegram.bot.password) намеренно НЕ шифруется: это локальный
+# ключ доступа к Telegram-боту, который пользователь может подсмотреть в
+# конфиге при его восстановлении.
 SENSITIVE_PATHS: dict[str, list[tuple[str, ...]]] = {
-    "config": [
+    "bot_settings/config.json": [
         ("playerok", "api", "cookies"),
         ("telegram", "api", "token"),
-        ("telegram", "bot", "password"),
         ("playerok", "auto_withdrawal", "card_id"),
         ("playerok", "auto_withdrawal", "sbp_phone_number"),
         ("playerok", "auto_withdrawal", "usdt_address"),
     ],
 }
+
+
+def _normalize(path: str) -> str:
+    """Приводит путь к единому виду (прямые слэши) для сопоставления в разных ОС."""
+    return str(path).replace("\\", "/")
 
 _cipher = None
 _cipher_ready = False
@@ -162,9 +170,9 @@ def _walk(config: dict, path: tuple[str, ...], transform) -> None:
         node[last] = transform(node[last])
 
 
-def encrypt_config(name: str, config):
+def encrypt_config(file_path: str, config):
     """Возвращает копию конфига с зашифрованными чувствительными полями."""
-    paths = SENSITIVE_PATHS.get(name)
+    paths = SENSITIVE_PATHS.get(_normalize(file_path))
     if not paths or not isinstance(config, dict):
         return config
     result = copy.deepcopy(config)
@@ -173,9 +181,9 @@ def encrypt_config(name: str, config):
     return result
 
 
-def decrypt_config(name: str, config):
+def decrypt_config(file_path: str, config):
     """Расшифровывает чувствительные поля конфига на месте и возвращает его."""
-    paths = SENSITIVE_PATHS.get(name)
+    paths = SENSITIVE_PATHS.get(_normalize(file_path))
     if not paths or not isinstance(config, dict):
         return config
     for path in paths:
