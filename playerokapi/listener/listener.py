@@ -75,17 +75,17 @@ class EventListener:
             time.sleep(6)
             
             try: msg_list = self.account.get_chat_messages(chat_id, count=12)
-            except: return
+            except Exception: return
             
             try: return [msg for msg in msg_list.messages if msg.id == message_id][0]
-            except: pass
+            except Exception: pass
 
     def _get_actual_deal( # получает свежие данные о сделки, ибо в новом ивенте она приходит устаревшая
         self, deal_id: str
     ) -> ItemDeal:
         for _ in range(3):
             try: return self.account.get_deal(deal_id)
-            except: pass
+            except Exception: pass
             
             time.sleep(3)
 
@@ -97,7 +97,7 @@ class EventListener:
                 self.active_deals[chat.id] = []
 
             try: deal_tuple = [tuple for tuple in self.active_deals[chat.id] if deal.id in tuple][0]
-            except: deal_tuple = ()
+            except Exception: deal_tuple = ()
 
             if not deal_tuple:
                 self.active_deals[chat.id].append((deal.id, deal.status, status_date))
@@ -436,7 +436,7 @@ class EventListener:
         #     ssl_context = None
 
         try: self.chats = self.account.get_chats(count=24).chats # инициализация первых 24 чатов
-        except: self.chats = []
+        except Exception: self.chats = []
 
         self._process_chats_last_messages(self.chats)
 
@@ -498,7 +498,7 @@ class EventListener:
                         continue
                     
                     try: deal = self.account.get_deal(deal_id)
-                    except: continue
+                    except Exception: continue
                     
                     if deal.review:
                         with self._state_lock:
@@ -508,12 +508,12 @@ class EventListener:
                         try:
                             with self._state_lock:
                                 deal.chat = [chat_ for chat_ in self.chats if chat_.id == deal.chat.id][0]
-                        except:
+                        except Exception:
                             try: deal.chat = self.account.get_chat(deal.chat.id)
-                            except: pass
+                            except Exception: pass
                         
                         yield NewReviewEvent(deal, deal.chat)
-                except:
+                except Exception:
                     logger.debug(f"Ошибка проверки новых отзывов в сделке {deal_id}: {traceback.format_exc()}")
             time.sleep(1)
 
@@ -562,7 +562,7 @@ class EventListener:
 
                         if not by_event:
                             time.sleep(8)
-                    except:
+                    except Exception:
                         pass
 
                 for chat in possible_chats:
@@ -597,11 +597,11 @@ class EventListener:
                             events = self._proccess_new_chat_message(chat, new_paid_msg)
                             for event in events:
                                 yield event
-                    except:
+                    except Exception:
                         logger.debug(f"Ошибка получения истории сообщений нового чата {chat.id}: {traceback.format_exc()}")
             except websocket._exceptions.WebSocketException:
                 pass
-            except:
+            except Exception:
                 logger.debug(f"Ошибка проверки новых сделок: {traceback.format_exc()}")
             
             self._last_chats_check = time.time()
@@ -617,7 +617,7 @@ class EventListener:
                             key=lambda x: self._parse_iso(x.created_at)
                         )
                         break
-                    except: 
+                    except Exception: 
                         time.sleep(6)
                 
                 for deal_id, last_status, status_date in deals:
@@ -634,14 +634,14 @@ class EventListener:
                                 continue
                             
                             try: chat = self.account.get_chat(chat_id)
-                            except: continue
+                            except Exception: continue
                             
                             events = self._parse_message_events(msg, chat)
                             for event in events:
                                 yield event
 
                             self._set_active_deal(chat, msg.deal, msg_date)
-                    except:
+                    except Exception:
                         logger.debug(f"Ошибка проверки статусов в сделке {deal_id}: {traceback.format_exc()}")
                     time.sleep(8)
             time.sleep(1)

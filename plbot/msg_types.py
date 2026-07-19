@@ -13,7 +13,6 @@ from playerokapi.types import (
     UserProfile, 
     Item, 
     ItemDeal, 
-    ChatMessage,
     Chat
 )
 

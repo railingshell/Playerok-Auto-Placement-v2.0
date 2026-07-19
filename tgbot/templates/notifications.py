@@ -75,7 +75,7 @@ def notifications_kb():
     ]
     
     if config["playerok"]["notifications"]["chat_id"]:
-        rows[1].append(InlineKeyboardButton(text=f"❌ Очистить", callback_data="clean_notifications_chat_id"))
+        rows[1].append(InlineKeyboardButton(text="❌ Очистить", callback_data="clean_notifications_chat_id"))
     
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

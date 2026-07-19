@@ -224,7 +224,7 @@ async def callback_fast_report_deal_problem(callback: CallbackQuery, callback_da
             state=state,
             message=callback.message,
             text=templ.do_action_text(
-                f"✅ Проблема <b>успешно создана</b>"
+                "✅ Проблема <b>успешно создана</b>"
             ),
             reply_markup=templ.destroy_kb()
         )

@@ -34,7 +34,7 @@ def bump_excluded_kb(page=0):
         keyphrases_frmtd = ", ".join(keyphrases) or "❌ Не указано"
         rows.append([
             InlineKeyboardButton(text=f"{keyphrases_frmtd}", callback_data="null_answer"),
-            InlineKeyboardButton(text=f"🗑️", callback_data=calls.DeleteExcludedBumpItem(index=excluded_bump_items.index(keyphrases)).pack()),
+            InlineKeyboardButton(text="🗑️", callback_data=calls.DeleteExcludedBumpItem(index=excluded_bump_items.index(keyphrases)).pack()),
         ])
 
     if total_pages > 1:

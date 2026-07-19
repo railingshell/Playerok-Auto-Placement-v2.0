@@ -44,9 +44,9 @@ def get_json(path: str, default: dict | list) -> dict:
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
     try:
-        with open(path, 'r', encoding='utf-8') as f:
+        with open(path, encoding='utf-8') as f:
             config = json.load(f)
-    except:
+    except Exception:
         config = default
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(config, f, indent=4, ensure_ascii=False)
@@ -76,11 +76,11 @@ class Data:
         try: 
             file = [file for file in data if file.name == name][0]
             return get_json(file.path, file.default)
-        except: return None
+        except Exception: return None
 
     @staticmethod
     def set(name: str, new: list | dict, data: list[DataFile] = DATA):
         try: 
             file = [file for file in data if file.name == name][0]
             set_json(file.path, new)
-        except: pass
+        except Exception: pass

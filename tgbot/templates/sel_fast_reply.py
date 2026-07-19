@@ -1,5 +1,4 @@
 import math
-import textwrap
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from settings import Settings as sett

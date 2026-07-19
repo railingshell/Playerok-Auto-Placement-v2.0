@@ -502,7 +502,7 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
                     if len(constants) == len(target_keys):
                         break
                     try:
-                        with open(py_file, 'r', encoding='utf-8') as f:
+                        with open(py_file, encoding='utf-8') as f:
                             tree = ast.parse(f.read())
                         for node in ast.walk(tree):
                             if isinstance(node, ast.Assign):
@@ -510,9 +510,9 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
                                     if isinstance(target, ast.Name) and target.id in target_keys:
                                         try:
                                             constants[target.id] = ast.literal_eval(node.value)
-                                        except:
+                                        except Exception:
                                             pass
-                    except:
+                    except Exception:
                         pass
 
                 name = constants.get('NAME')
@@ -617,4 +617,4 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
         )
     finally:
         try: os.remove(temp_path)
-        except: pass
+        except Exception: pass

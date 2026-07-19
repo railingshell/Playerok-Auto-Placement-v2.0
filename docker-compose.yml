@@ -1,0 +1,17 @@
+services:
+  pap:
+    build: .
+    image: playerok-auto-placement:latest
+    container_name: playerok-auto-placement
+    restart: unless-stopped
+    # Ключ шифрования секретов конфигурации.
+    # Сгенерируйте свой: python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+    environment:
+      # - PAP_SECRET_KEY=<ваш-ключ-Fernet>
+      - TZ=Europe/Moscow
+    volumes:
+      - ./bot_settings:/app/bot_settings
+      - ./bot_data:/app/bot_data
+      - ./logs:/app/logs
+    stdin_open: true
+    tty: true

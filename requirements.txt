@@ -20,3 +20,4 @@ tqdm==4.67.1
 pytz==2025.2
 rarfile==4.2
 python-certifi-win32
+cryptography==44.0.0

@@ -40,7 +40,7 @@ async def signed_users_kb(page=0):
         try:
             chat = await bot.get_chat(user_id)
             username = "@" + chat.username.replace("@", "")
-        except:
+        except Exception:
             username = user_id
         rows.append([
             InlineKeyboardButton(text=username, callback_data="null_answer"),

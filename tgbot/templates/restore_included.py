@@ -34,7 +34,7 @@ def restore_included_kb(page=0):
         keyphrases_frmtd = ", ".join(keyphrases) or "❌ Не указаны"
         rows.append([
             InlineKeyboardButton(text=f"{keyphrases_frmtd}", callback_data="null_answer"),
-            InlineKeyboardButton(text=f"🗑️", callback_data=calls.DeleteIncludedRestoreItem(index=included_restore_items.index(keyphrases)).pack()),
+            InlineKeyboardButton(text="🗑️", callback_data=calls.DeleteIncludedRestoreItem(index=included_restore_items.index(keyphrases)).pack()),
         ])
 
     if total_pages > 1:

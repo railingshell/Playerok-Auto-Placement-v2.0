@@ -3,6 +3,17 @@ bot_settings/
 bot_data/
 logs/
 
+# Secret encryption key (never commit!)
+.secret_key
+*.secret_key
+
+# Local backups (contain secrets — never commit!)
+backups/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+
 # Python
 __pycache__/
 *.py[cod]

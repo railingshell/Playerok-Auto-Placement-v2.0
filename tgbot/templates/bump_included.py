@@ -34,7 +34,7 @@ def bump_included_kb(page=0):
         keyphrases_frmtd = ", ".join(keyphrases) or "❌ Не указано"
         rows.append([
             InlineKeyboardButton(text=f"{keyphrases_frmtd}", callback_data="null_answer"),
-            InlineKeyboardButton(text=f"🗑️", callback_data=calls.DeleteIncludedBumpItem(index=included_bump_items.index(keyphrases)).pack()),
+            InlineKeyboardButton(text="🗑️", callback_data=calls.DeleteIncludedBumpItem(index=included_bump_items.index(keyphrases)).pack()),
         ])
 
     if total_pages > 1:

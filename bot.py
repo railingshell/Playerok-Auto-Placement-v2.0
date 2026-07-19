@@ -119,7 +119,7 @@ if __name__ == "__main__":
         asyncio.run(call_bot_event("ON_INIT"))
         
         main_loop.run_forever()
-    except Exception as e:
+    except Exception:
         traceback.print_exc()
         print(
             f"\n\n{Fore.LIGHTRED_EX}Ваш бот словил непредвиденную ошибку и был выключен."

@@ -53,7 +53,6 @@ def modules_kb(page=0):
 
 
 def modules_float_text(placeholder):
-    modules = get_modules()
     txt = textwrap.dedent(f"""
         <b>🔌 Модули</b>
         \n{placeholder}

@@ -61,7 +61,7 @@ def bump_kb():
     excluded = len(auto_bump_items["excluded"])
     
     rows = [
-        [InlineKeyboardButton(text=f"⬆️ Поднять товары", callback_data="confirm_bump_items")],
+        [InlineKeyboardButton(text="⬆️ Поднять товары", callback_data="confirm_bump_items")],
         [InlineKeyboardButton(text=f"💡 Включено: {enabled}", callback_data="switch_auto_bump_items_enabled")],
         [InlineKeyboardButton(text=f"📦 Поднимать: {all}", callback_data="switch_auto_bump_items_all")],
         [InlineKeyboardButton(text=f"⏰ Интервал: {interval} сек.", callback_data="enter_auto_bump_items_interval")],

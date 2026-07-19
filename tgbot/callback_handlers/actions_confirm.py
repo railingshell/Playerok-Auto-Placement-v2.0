@@ -3,7 +3,6 @@ from aiogram.types import CallbackQuery
 from aiogram.fsm.context import FSMContext
 
 from playerokapi.enums import PriorityTypes
-from settings import Settings as sett
 
 from .. import templates as templ
 from .. import callback_datas as calls
