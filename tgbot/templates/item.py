@@ -60,13 +60,19 @@ def item_text(item: MyItem):
     dt = datetime.fromisoformat(iso_dt).astimezone(pytz.timezone("Europe/Moscow"))
     date = dt.strftime("%d.%m %H:%M:%S")
     
+    data_block = f"\n{data_str}\n" if data_str else ""
     txt = textwrap.dedent(f"""
-        <b>📄🛍️ Страница товара</b>
-        \n<b>📂 Категория:</b> {game} ({cat})\n<b>💰 Цена:</b> {price}
-        \n<b>🏷️ Название:</b> {name} <a href="{image}">(Изображение)</a>\n<b>📃 Описание:</b> <blockquote>{desc}</blockquote>
-        \n<b>👀 Статус:</b> {status_sym} {status_str}\n<b>🚀 Приоритет:</b> {priority}
-        \n{data_str}
-        \n<b>📅 Дата создания:</b> {date}
+        🛍 <b>Товар</b> · {status_sym} {status_str}
+
+        <b>🏷 {name}</b>
+        <b>💰 Цена:</b> {price}
+        <b>🚀 Приоритет:</b> {priority}
+        <b>📂 Категория:</b> {game} · {cat}
+
+        <b>📝 Описание</b>
+        <blockquote>{desc}</blockquote>
+        {data_block}
+        <b>🕒 {date}</b>   ·   <a href="{image}">🔗 Фото</a>
     """)
     return txt
 
