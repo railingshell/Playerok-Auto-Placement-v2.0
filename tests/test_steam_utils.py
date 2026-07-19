@@ -34,7 +34,7 @@ def test_parse_mafile_from_bytes():
 
 
 def test_parse_mafile_invalid_raises():
-    with pytest.raises(Exception):
+    with pytest.raises(ValueError):
         steam_utils.parse_mafile("{ broken")
 
 
