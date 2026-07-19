@@ -66,7 +66,9 @@ function Show-Menu {
     Write-Host 'Sozdat novyj reliz' -ForegroundColor White
     Write-Host '  [5]  ->  ' -ForegroundColor Yellow -NoNewline
     Write-Host 'Otkryt papku proekta' -ForegroundColor White
-    Write-Host '  [6]  ->  ' -ForegroundColor Red -NoNewline
+    Write-Host '  [6]  ->  ' -ForegroundColor Green -NoNewline
+    Write-Host 'Sozdat bekap nastroek i dannyh' -ForegroundColor White
+    Write-Host '  [7]  ->  ' -ForegroundColor Red -NoNewline
     Write-Host 'Vyjti' -ForegroundColor White
     Write-Host ''
     Draw-Line
@@ -137,6 +139,18 @@ function Open-Folder {
     [void][System.Console]::ReadKey($true)
 }
 
+function Backup-Data {
+    Clear-Host
+    Draw-Header
+    Write-Host '  [ BEKAP ] Sozdanie arhiva nastroek i dannyh...' -ForegroundColor Green
+    Write-Host ''
+    python backup.py create
+    Write-Host ''
+    Write-Host '  [ INFO ] Hranite arhiv v nadezhnom meste (v nem kljuch shifrovanija).' -ForegroundColor Yellow
+    Write-Host '  Najmite ljubuju klavishu dlja vozvrata.' -ForegroundColor Gray
+    [void][System.Console]::ReadKey($true)
+}
+
 function Exit-App {
     Clear-Host
     Draw-Header
@@ -152,14 +166,15 @@ if ($Action -eq 'intro') {
     Show-Intro
     while ($true) {
         Show-Menu
-        $choice = Read-Host '  Vyberite dejstvie [1-6]'
+        $choice = Read-Host '  Vyberite dejstvie [1-7]'
         switch ($choice) {
             '1' { Start-Bot }
             '2' { Check-Updates }
             '3' { Push-GitHub }
             '4' { Create-Release }
             '5' { Open-Folder }
-            '6' { Exit-App }
+            '6' { Backup-Data }
+            '7' { Exit-App }
             default {
                 Write-Host '  [ OSIBKA ] Nevernyj punkt menju. Poprobujte eshche raz.' -ForegroundColor Red
                 Start-Sleep -Seconds 1
