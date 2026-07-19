@@ -15,11 +15,25 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Extract release notes from CHANGELOG
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [ -f CHANGELOG.md ]; then
+            awk -v tag="$TAG" '
+              $0 ~ ("^## \\[" tag "\\]") {found=1; next}
+              found && /^## \[/ {exit}
+              found {print}
+            ' CHANGELOG.md > RELEASE_NOTES.md
+          fi
+          if [ ! -s RELEASE_NOTES.md ]; then
+            printf "Релиз %s\n" "$TAG" > RELEASE_NOTES.md
+          fi
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: Playerok Auto Placement ${{ github.ref_name }}
-          body: Auto release ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
           draft: false
           prerelease: false
         env:
