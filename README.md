@@ -131,6 +131,8 @@ bash <(curl -s https://raw.githubusercontent.com/lovesort/playerok-auto-placemen
 | `plpap log` | 🗒️ Логи бота |
 | `plpap log100` | 📃 Последние 100 логов |
 | `plpap update` | 🔵 Обновление бота |
+| `plpap backup` | 💾 Бэкап настроек и данных |
+| `plpap restore <архив>` | ♻️ Восстановление из бэкапа |
 | `plpap enable` | ☑️ Включить авто-запуск |
 | `plpap disable` | ❌ Выключить авто-запуск |
 
@@ -194,6 +196,8 @@ python backup.py restore <архив>   # восстановить из архи
 ```
 
 Бэкап включает `bot_settings/` (конфиги + `.secret_key`) и `bot_data/`.
+На Linux доступны быстрые команды `plpap backup` и `plpap restore <архив>`, а в
+Windows-меню — пункт **«Sozdat bekap»**.
 
 > 🔒 **Почему не на GitHub?** Архив содержит ключ шифрования и токены — вместе они
 > равносильны данным в открытом виде. Храните бэкапы в **надёжном приватном месте**
