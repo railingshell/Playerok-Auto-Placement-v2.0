@@ -2,6 +2,8 @@ import json
 import os
 from dataclasses import dataclass
 
+from core.secrets import decrypt_payload, encrypt_payload
+
 
 @dataclass
 class DataFile:
@@ -77,12 +79,13 @@ class Data:
     def get(name: str, data: list[DataFile] = DATA) -> dict | list | None:
         try: 
             file = [file for file in data if file.name == name][0]
-            return get_json(file.path, file.default)
+            config = get_json(file.path, file.default)
+            return decrypt_payload(file.path, config, file.default)
         except Exception: return None
 
     @staticmethod
     def set(name: str, new: list | dict, data: list[DataFile] = DATA):
         try: 
             file = [file for file in data if file.name == name][0]
-            set_json(file.path, new)
+            set_json(file.path, encrypt_payload(file.path, new))
         except Exception: pass

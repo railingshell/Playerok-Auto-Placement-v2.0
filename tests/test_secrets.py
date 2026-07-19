@@ -71,18 +71,64 @@ def test_config_only_sensitive_fields_encrypted(cipher_key):
     assert restored["telegram"]["api"]["token"] == "123:AAA"
 
 
-def test_module_config_is_not_encrypted(cipher_key):
-    # Модули тоже используют name="config", но со своим путём — их данные
-    # не должны шифроваться, даже если структура случайно пересекается.
+def test_module_config_only_registered_secret_encrypted(cipher_key):
+    # У конфига модуля шифруется только зарегистрированный секрет (steam.api_key),
+    # прочие поля (в т.ч. случайно совпадающие playerok/telegram) остаются как есть.
     module_path = "/app/modules/auto_steam_rental/module_settings/config.json"
     data = {
         "enabled": True,
-        "telegram": {"bot": {"password": "module-secret"}},
-        "playerok": {"api": {"cookies": "should-stay-plain"}},
+        "steam": {"api_key": "SECRET", "proxy": ""},
+        "playerok": {"api": {"cookies": "not-a-core-secret"}},
     }
     result = secrets.encrypt_config(module_path, data)
-    assert result == data
-    assert result["playerok"]["api"]["cookies"] == "should-stay-plain"
+    assert result["steam"]["api_key"].startswith(secrets.ENC_PREFIX)
+    assert result["steam"]["proxy"] == ""
+    assert result["playerok"]["api"]["cookies"] == "not-a-core-secret"  # не трогаем
+    assert data["steam"]["api_key"] == "SECRET"  # исходник не мутирован
+
+    restored = secrets.decrypt_config(module_path, secrets.encrypt_config(module_path, data))
+    assert restored["steam"]["api_key"] == "SECRET"
+
+
+def test_whole_file_payload_round_trip(cipher_key):
+    # Данные модуля (список словарей с секретами) шифруются целиком
+    path = "/srv/app/modules/auto_steam_rental/module_data/accounts.json"
+    accounts = [
+        {"login": "user1", "password": "p1", "maFile": {"shared_secret": "s1"}},
+        {"login": "user2", "password": "p2", "maFile": {"shared_secret": "s2"}},
+    ]
+    on_disk = secrets.encrypt_payload(path, accounts)
+    assert isinstance(on_disk, dict) and "__enc__" in on_disk  # валидная JSON-обёртка
+    assert secrets.decrypt_payload(path, on_disk, default=[]) == accounts
+
+
+def test_whole_file_legacy_plaintext_passthrough(cipher_key):
+    path = "/srv/app/modules/auto_steam_rental/module_data/accounts.json"
+    legacy = [{"login": "old", "password": "plain"}]
+    assert secrets.decrypt_payload(path, legacy, default=[]) == legacy
+
+
+def test_whole_file_only_designated_files(cipher_key):
+    # stats.json не в списке — не шифруется
+    path = "/srv/app/modules/auto_steam_rental/module_data/stats.json"
+    data = {"rented": 5, "profit": 100}
+    assert secrets.encrypt_payload(path, data) == data
+
+
+def test_whole_file_decrypt_failure_returns_default(monkeypatch):
+    from cryptography.fernet import Fernet
+    path = "/srv/app/modules/auto_steam_offline/module_data/accounts.json"
+
+    monkeypatch.setenv("PAP_SECRET_KEY", Fernet.generate_key().decode())
+    secrets.reset_cipher()
+    encrypted = secrets.encrypt_payload(path, [{"login": "x"}])
+
+    monkeypatch.setenv("PAP_SECRET_KEY", Fernet.generate_key().decode())  # другой ключ
+    secrets.reset_cipher()
+    try:
+        assert secrets.decrypt_payload(path, encrypted, default=[]) == []
+    finally:
+        secrets.reset_cipher()
 
 
 def test_unknown_file_is_untouched(cipher_key):
