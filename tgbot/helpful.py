@@ -21,13 +21,21 @@ logger = getLogger("universal.telegram")
 async def is_subscribed(user_id: int) -> bool:
     """
     Проверяет, подписан ли пользователь на обязательный канал.
-    Если функция выключена или канал не задан — доступ открыт.
-    При ошибке проверки (бот не админ канала и т.п.) — доступ открыт (fail-open),
-    чтобы не заблокировать всех, включая владельца.
+
+    - Если функция выключена или канал не задан — доступ открыт.
+    - Авторизованные пользователи (signed_users, т.е. владелец) НЕ гейтятся —
+      чтобы не запереть себя даже при неверной настройке.
+    - Для остальных: при ошибке проверки (бот не админ канала, неверный @канал)
+      доступ закрыт (fail-closed) — гейт показывается. Для прохождения гейта бот
+      должен быть администратором канала.
     """
     config = sett.get("config")
     fs = config["telegram"]["bot"].get("forced_subscription", {})
     if not fs.get("enabled") or not fs.get("channel"):
+        return True
+
+    # Владелец/авторизованные — всегда пропускаем (нет риска самоблокировки)
+    if user_id in config["telegram"]["bot"].get("signed_users", []):
         return True
 
     from .telegrambot import get_telegram_bot
@@ -37,10 +45,10 @@ async def is_subscribed(user_id: int) -> bool:
         return member.status not in ("left", "kicked")
     except Exception as e:
         logger.warning(
-            f"Не удалось проверить подписку на {fs['channel']} "
-            f"(сделайте бота администратором канала): {e}"
+            f"Не удалось проверить подписку на {fs['channel']} — "
+            f"сделайте бота администратором канала: {e}"
         )
-        return True
+        return False
 
 
 async def _subscription_channel_info() -> tuple[str, str]:
