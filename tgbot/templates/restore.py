@@ -54,7 +54,7 @@ def restore_kb():
         InlineKeyboardButton(text=f"➕ Включенные: {included}", callback_data=calls.IncludedRestoreItemsPagination(page=0).pack()),
         InlineKeyboardButton(text=f"➖ Исключенные: {excluded}", callback_data=calls.ExcludedRestoreItemsPagination(page=0).pack())
         ],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

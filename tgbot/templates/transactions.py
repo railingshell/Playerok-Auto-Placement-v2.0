@@ -125,7 +125,7 @@ def transactions_kb(transactions: list[Transaction], page=0):
     ])
     rows.append([InlineKeyboardButton(text="💸 Вывод", callback_data="enter_new_transaction")]) # TODO: доделать
     rows.append([
-        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack()),
+        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="management").pack()),
         InlineKeyboardButton(text="🔄️ Обновить", callback_data=calls.TransactionsPagination(page=page, upd=True).pack())
     ])
 

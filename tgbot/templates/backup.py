@@ -33,7 +33,7 @@ def backup_kb():
         [InlineKeyboardButton(text="💾 Создать бэкап", callback_data="create_backup")],
         [InlineKeyboardButton(text="📤 Отправить архив в чат", callback_data="send_backup_to_chat")],
         [InlineKeyboardButton(text="📄 Список бэкапов", callback_data="list_backups")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="system").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

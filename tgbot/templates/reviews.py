@@ -119,7 +119,7 @@ def reviews_kb(reviews: list[Review], page=0):
         InlineKeyboardButton(text="🌟 На сайте", url=f"https://playerok.com/profile/{acc.username}/reviews")
     ])
     rows.append([
-        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack()),
+        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="management").pack()),
         InlineKeyboardButton(text="🔄️ Обновить", callback_data=calls.ReviewsPagination(page=page, upd=True).pack())
     ])
 

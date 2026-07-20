@@ -50,7 +50,7 @@ def fast_replies_kb(page=0):
         rows.append(buttons_row)
 
     rows.append([InlineKeyboardButton(text="➕ Добавить", callback_data="enter_new_fast_reply_text")])
-    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())])
+    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())])
 
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

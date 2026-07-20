@@ -36,7 +36,7 @@ def conn_kb():
         [InlineKeyboardButton(text=f"🌐 Прокси для Playerok: {pl_proxy}", callback_data="enter_pl_proxy")],
         [InlineKeyboardButton(text=f"🌐 Прокси для Telegram: {tg_proxy}", callback_data="enter_tg_proxy")],
         [InlineKeyboardButton(text=f"🛜 Таймаут подключения к playerok.com: {requests_timeout} сек.", callback_data="enter_requests_timeout")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     if config["playerok"]["api"]["proxy"]: 
         rows[0].append(InlineKeyboardButton(text="❌ Убрать прокси", callback_data="clean_pl_proxy"))
