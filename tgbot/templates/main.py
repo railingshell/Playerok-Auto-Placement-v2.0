@@ -18,6 +18,26 @@ def back_kb(cb: str):
     return InlineKeyboardMarkup(inline_keyboard=rows)
 
 
+def subscription_required_text(channel_name: str):
+    txt = textwrap.dedent(f"""
+        ⚠️ <b>Требуется подписка</b>
+
+        Для использования бота подпишитесь на канал:
+        <blockquote>📣 {channel_name}</blockquote>
+
+        После подписки нажмите кнопку ниже 👇
+    """)
+    return txt
+
+
+def subscription_required_kb(channel_name: str, channel_url: str):
+    rows = []
+    if channel_url:
+        rows.append([InlineKeyboardButton(text=f"📣 Подписаться на {channel_name}", url=channel_url)])
+    rows.append([InlineKeyboardButton(text="✅ Я подписался", callback_data="check_subscription")])
+    return InlineKeyboardMarkup(inline_keyboard=rows)
+
+
 def confirm_kb(confirm_cb: str, cancel_cb: str):
     rows = [[
         InlineKeyboardButton(text="✅ Подтвердить", callback_data=confirm_cb),

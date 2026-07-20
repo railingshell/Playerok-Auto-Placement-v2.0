@@ -8,7 +8,70 @@ from aiogram.types import (
 )
 from aiogram.exceptions import TelegramAPIError, TelegramBadRequest
 
+from logging import getLogger
+
+from settings import Settings as sett
+
 from . import templates as templ
+
+
+logger = getLogger("universal.telegram")
+
+
+async def is_subscribed(user_id: int) -> bool:
+    """
+    Проверяет, подписан ли пользователь на обязательный канал.
+    Если функция выключена или канал не задан — доступ открыт.
+    При ошибке проверки (бот не админ канала и т.п.) — доступ открыт (fail-open),
+    чтобы не заблокировать всех, включая владельца.
+    """
+    config = sett.get("config")
+    fs = config["telegram"]["bot"].get("forced_subscription", {})
+    if not fs.get("enabled") or not fs.get("channel"):
+        return True
+
+    from .telegrambot import get_telegram_bot
+    bot = get_telegram_bot().bot
+    try:
+        member = await bot.get_chat_member(fs["channel"], user_id)
+        return member.status not in ("left", "kicked")
+    except Exception as e:
+        logger.warning(
+            f"Не удалось проверить подписку на {fs['channel']} "
+            f"(сделайте бота администратором канала): {e}"
+        )
+        return True
+
+
+async def _subscription_channel_info() -> tuple[str, str]:
+    """Возвращает (название, ссылка) обязательного канала для отображения."""
+    config = sett.get("config")
+    channel = config["telegram"]["bot"]["forced_subscription"].get("channel", "")
+    username = channel.lstrip("@")
+    name = username or "канал"
+    url = f"https://t.me/{username}" if username and not channel.startswith("-") else ""
+
+    from .telegrambot import get_telegram_bot
+    try:
+        chat = await get_telegram_bot().bot.get_chat(channel)
+        name = chat.title or name
+        if chat.username:
+            url = f"https://t.me/{chat.username}"
+    except Exception:
+        pass
+    return name, url
+
+
+async def show_subscription_gate(message: Message, state: FSMContext, callback: CallbackQuery = None) -> Message | None:
+    """Показывает экран «Требуется подписка»."""
+    name, url = await _subscription_channel_info()
+    return await throw_float_message(
+        state=state,
+        message=message,
+        text=templ.subscription_required_text(name),
+        reply_markup=templ.subscription_required_kb(name, url),
+        callback=callback
+    )
 
 
 async def do_auth(message: Message, state: FSMContext) -> Message | None:

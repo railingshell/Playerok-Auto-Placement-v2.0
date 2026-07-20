@@ -735,3 +735,23 @@ async def callback_enter_current_password(callback: CallbackQuery, state: FSMCon
         text=templ.signed_users_float_text("🔒 Введите <b>текущий ключ-пароль</b> от бота:"),
         reply_markup=templ.back_kb(calls.SignedUsersPagination(page=last_page).pack())
     )
+
+
+@router.callback_query(F.data == "enter_forced_subscription_channel")
+async def callback_enter_forced_subscription_channel(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(states.SettingsStates.waiting_for_forced_subscription_channel)
+
+    config = sett.get("config")
+    channel = config["telegram"]["bot"]["forced_subscription"].get("channel") or "❌ Не задано"
+
+    await throw_float_message(
+        state=state,
+        message=callback.message,
+        text=templ.other_float_text(
+            "🔗 Пришлите <b>@юзернейм канала</b> для обязательной подписки."
+            "\n\n· <b>Текущее:</b> <code>" + channel + "</code>"
+            "\n· Бот должен быть <b>администратором</b> канала."
+            "\n\n<i>Чтобы отключить — пришлите</i> <code>-</code>"
+        ),
+        reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
+    )

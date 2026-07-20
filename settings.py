@@ -80,7 +80,11 @@ CONFIG = SettingsFile(
             },
             "bot": {
                 "password": "",
-                "signed_users": []
+                "signed_users": [],
+                "forced_subscription": {
+                    "enabled": False,
+                    "channel": ""
+                }
             }
         },
         "updates": {

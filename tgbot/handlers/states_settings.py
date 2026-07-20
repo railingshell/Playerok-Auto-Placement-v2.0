@@ -616,3 +616,47 @@ async def handler_waiting_for_module_file(message: types.Message, state: FSMCont
     finally:
         try: os.remove(temp_path)
         except Exception: pass
+
+
+@router.message(states.SettingsStates.waiting_for_forced_subscription_channel, F.text)
+async def handler_waiting_for_forced_subscription_channel(message: types.Message, state: FSMContext):
+    try:
+        await state.set_state(None)
+        value = message.text.strip()
+
+        config = sett.get("config")
+        if value == "-":
+            config["telegram"]["bot"]["forced_subscription"]["channel"] = ""
+            config["telegram"]["bot"]["forced_subscription"]["enabled"] = False
+            sett.set("config", config)
+            return await throw_float_message(
+                state=state,
+                message=message,
+                text=templ.other_float_text("✅ Обязательная подписка <b>отключена</b>"),
+                reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
+            )
+
+        if "t.me/" in value:
+            value = "@" + value.split("t.me/")[-1].strip("/").split("/")[0]
+        elif not value.startswith("@") and not value.startswith("-"):
+            value = "@" + value
+
+        config["telegram"]["bot"]["forced_subscription"]["channel"] = value
+        sett.set("config", config)
+
+        await throw_float_message(
+            state=state,
+            message=message,
+            text=templ.other_float_text(
+                f"✅ Канал подписки установлен: <b>{value}</b>"
+                "\n\n<blockquote>Сделайте бота <b>администратором</b> канала и включите обязательную подписку.</blockquote>"
+            ),
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
+        )
+    except Exception as e:
+        await throw_float_message(
+            state=state,
+            message=message,
+            text=templ.other_float_text(e),
+            reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
+        )

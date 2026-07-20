@@ -48,6 +48,7 @@ class SettingsStates(StatesGroup):
 
     waiting_for_logs_max_file_size = State()
     waiting_for_module_file = State()
+    waiting_for_forced_subscription_channel = State()
 
 
 class MessagesStates(StatesGroup):
