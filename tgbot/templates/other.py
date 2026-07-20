@@ -14,7 +14,7 @@ def other_text():
     watermark_value = config["playerok"]["watermark"]["value"] or "❌ Не задано"
     
     txt = textwrap.dedent(f"""
-        <b>🔧 Прочее</b>
+        🔧 <b>Прочее</b>
 
         <b>👀 Чтение чата:</b> {read_chat}
         <blockquote><b>(?)</b> Будет помечать чат как прочитанный перед тем, как отправить сообщение.</blockquote>
@@ -44,7 +44,7 @@ def other_kb():
 
 def other_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🔧 Прочее</b>
+        🔧 <b>Прочее</b>
         \n{placeholder}
     """)
     return txt

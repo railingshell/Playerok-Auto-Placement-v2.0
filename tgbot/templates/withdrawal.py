@@ -39,7 +39,7 @@ def withdrawal_text(card: UserBankCard = None, sbp_bank: SBPBankMember = None):
         next_time = "никогда"
     
     txt = textwrap.dedent(f"""
-        <b>💸 Авто-вывод</b>
+        💸 <b>Авто-вывод</b>
         <blockquote><b>(?)</b> Бот будет автоматически с указанным интервалом создавать вывод всех средств на аккаунте по указанным реквизитам.</blockquote>
 
         <b>💡 Включено:</b> {enabled}
@@ -84,7 +84,7 @@ def withdrawal_kb(card: UserBankCard = None, sbp_bank: SBPBankMember = None):
 
 def withdrawal_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>💸 Авто-вывод</b>
+        💸 <b>Авто-вывод</b>
         \n{placeholder}
     """)
     return txt

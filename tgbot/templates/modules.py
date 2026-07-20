@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def modules_text():
     modules = get_modules()
     txt = textwrap.dedent(f"""
-        <b>🔌 Модули</b>
+        🔌 <b>Модули</b>
         Всего <b>{len(modules)}</b> подключенных модулей:
     """)
     return txt
@@ -54,7 +54,7 @@ def modules_kb(page=0):
 
 def modules_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>🔌 Модули</b>
+        🔌 <b>Модули</b>
         \n{placeholder}
     """)
     return txt

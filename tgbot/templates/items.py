@@ -69,7 +69,7 @@ def items_text(items: list[Item], page=0):
         items_frmtd = "Нету товаров по заданным фильтрам. Попробуйте обновить страницу"
 
     txt = textwrap.dedent(f"""
-        <b>🛍️ Товары</b>
+        🛍️ <b>Товары</b>
         \n{items_frmtd}
     """)
     return txt
@@ -129,7 +129,7 @@ def items_kb(items: list[Item], page=0):
 
 def items_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>🛍️ Товары</b>
+        🛍️ <b>Товары</b>
         \n{placeholder}
     """)
     return txt

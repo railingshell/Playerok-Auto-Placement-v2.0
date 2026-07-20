@@ -76,7 +76,7 @@ def chat_text(chat: Chat, msgs: list[ChatMessage]):
         msgs_frmtd += f"<b>{username}:</b> <i>{msg_date}{is_read}</i> <blockquote>{msg_text}</blockquote>\n\n"
     
     txt = textwrap.dedent(f"""
-        <b>💬 {chat_name}</b>
+        💬 <b>{chat_name}</b>
         \n{msgs_frmtd}
     """)
     return txt
@@ -116,7 +116,7 @@ def chat_float_text(chat: Chat, placeholder):
         chat_name = "🛡️ Поддержка"
         
     txt = textwrap.dedent(f"""
-        <b>💬 {chat_name}</b>
+        💬 <b>{chat_name}</b>
         \n{placeholder}
     """)
     return txt

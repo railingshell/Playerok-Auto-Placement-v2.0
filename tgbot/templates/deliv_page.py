@@ -22,7 +22,7 @@ def deliv_page_text(index: int):
         part = f"<b>💬 Сообщение:</b> <blockquote>{message}</blockquote>"
     
     txt = textwrap.dedent(f"""
-        <b>📄🚀 Страница авто-выдачи</b>
+        🚀 <b>Страница авто-выдачи</b>
 
         <b>⚡ Тип выдачи:</b> {piece_str}
         <b>🔑 Ключевые фразы:</b> <code>{keyphrases}</code>
@@ -59,7 +59,7 @@ def deliv_page_kb(index: int, page: int = 0):
 
 def deliv_page_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>📄🚀 Страница авто-выдачи</b>
+        🚀 <b>Страница авто-выдачи</b>
         \n{placeholder}
     """)
     return txt

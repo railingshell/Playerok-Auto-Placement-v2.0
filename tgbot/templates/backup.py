@@ -17,7 +17,7 @@ def backup_text():
     count, last = _backups_info()
 
     txt = textwrap.dedent(f"""
-        <b>💾 Бэкап</b>
+        💾 <b>Бэкап</b>
 
         Резервная копия сохраняет настройки бота (<code>bot_settings/</code>, включая ключ шифрования) и собранные данные (<code>bot_data/</code>).
         <blockquote><b>(?)</b> Архив создаётся на сервере в папке <code>backups/</code>. Он содержит ключ шифрования и токены — храните его в надёжном месте и не пересылайте посторонним.</blockquote>
@@ -41,7 +41,7 @@ def backup_kb():
 
 def backup_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>💾 Бэкап</b>
+        💾 <b>Бэкап</b>
         \n{placeholder}
     """)
     return txt

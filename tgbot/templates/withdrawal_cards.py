@@ -9,7 +9,7 @@ from .. import callback_datas as calls
 
 def withdrawal_cards_text(bank_cards: list[UserBankCard]):
     txt = textwrap.dedent(f"""
-        <b>💳 Банковские карты</b>
+        💳 <b>Банковские карты</b>
         Всего <b>{len(bank_cards)}</b> карт:
     """)
     return txt
@@ -61,7 +61,7 @@ def withdrawal_cards_kb(bank_cards: list[UserBankCard], page=0):
 
 def withdrawal_cards_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>💳 Банковские карты</b>
+        💳 <b>Банковские карты</b>
         \n{placeholder}
     """)
     return txt

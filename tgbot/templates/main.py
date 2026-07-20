@@ -7,7 +7,7 @@ from .. import callback_datas as calls
 
 def error_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>❌ Ошибка</b>
+        ❌ <b>Ошибка</b>
         \n<blockquote>{placeholder}</blockquote>
     """)
     return txt
@@ -59,7 +59,7 @@ def new_release_kb():
 def new_sign_text(user):
     username = "@" + user.username.replace("@", "")
     txt = textwrap.dedent(f"""
-        <b>🔑 Новая авторизация</b>
+        🔑 <b>Новая авторизация</b>
 
         Пользователь <b>{username}</b> только что авторизовался в боте
         
@@ -70,7 +70,7 @@ def new_sign_text(user):
 
 def do_action_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🧩 Действие</b>
+        🧩 <b>Действие</b>
         \n{placeholder}
     """)
     return txt
@@ -162,7 +162,7 @@ def log_transaction_kb(deal_id: str):
 
 def sign_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🔐 Авторизация</b>
+        🔐 <b>Авторизация</b>
         \n{placeholder}
     """)
     return txt

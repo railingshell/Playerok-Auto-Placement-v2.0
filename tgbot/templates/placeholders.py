@@ -8,7 +8,7 @@ from .. import callback_datas as calls
 def plholders_text(to):
     if to == "account":
         txt = textwrap.dedent("""
-            <b>🏷️ Заменители</b>
+            🏷️ <b>Заменители</b>
             
             <b>👤 Аккаунт</b> (<code>account</code>):
 
@@ -23,7 +23,7 @@ def plholders_text(to):
         """)
     elif to == "user":
         txt = textwrap.dedent("""
-            <b>🏷️ Заменители</b>
+            🏷️ <b>Заменители</b>
             
             <b>👤 Собеседник</b> (<code>user</code>):
 
@@ -39,7 +39,7 @@ def plholders_text(to):
         """)
     elif to == "chat":
         txt = textwrap.dedent("""
-            <b>🏷️ Заменители</b>
+            🏷️ <b>Заменители</b>
             
             <b>💬 Чат</b> (<code>chat</code>):
 
@@ -51,7 +51,7 @@ def plholders_text(to):
         """)
     elif to == "deal":
         txt = textwrap.dedent("""
-            <b>🏷️ Заменители</b>
+            🏷️ <b>Заменители</b>
             
             <b>📋 Сделка</b> (<code>deal</code>):
 
@@ -64,7 +64,7 @@ def plholders_text(to):
         """)
     elif to == "item":
         txt = textwrap.dedent("""
-            <b>🏷️ Заменители</b>
+            🏷️ <b>Заменители</b>
             
             <b>🛍️ Товар</b> (<code>item</code>):
 

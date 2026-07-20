@@ -10,7 +10,7 @@ def stats_month_text():
     stats = get_stats()
     
     txt = textwrap.dedent(f"""
-        <b>📊 Статистика</b>
+        📊 <b>Статистика</b>
 
         <b>🗓 За последние 30 дней:</b>
                           

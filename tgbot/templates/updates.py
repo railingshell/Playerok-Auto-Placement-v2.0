@@ -13,7 +13,7 @@ def updates_text():
     notify = "✅" if config["updates"]["notify"] else "❌"
     
     txt = textwrap.dedent(f"""
-        <b>🔃 Обновления</b>
+        🔃 <b>Обновления</b>
 
         <b>⬇️ Авто-установка:</b> {auto_update}
         <blockquote><b>(?)</b> Бот будет автоматически обновляться до последней версии при запуске (не во время работы).</blockquote>
@@ -41,7 +41,7 @@ def updates_kb():
 
 def updates_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🔃 Обновления</b>
+        🔃 <b>Обновления</b>
         \n{placeholder}
     """)
     return txt

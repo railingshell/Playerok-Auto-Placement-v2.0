@@ -64,12 +64,12 @@ def item_text(item: MyItem):
     txt = textwrap.dedent(f"""
         🛍 <b>Товар</b> · {status_sym} {status_str}
 
-        <b>🏷 {name}</b>
+        🏷 <b>{name}</b>
         <b>💰 Цена:</b> {price}
         <b>🚀 Приоритет:</b> {priority}
         <b>📂 Категория:</b> {game} · {cat}
 
-        <b>📝 Описание</b>
+        📝 <b>Описание</b>
         <blockquote>{desc}</blockquote>
         {data_block}
         <b>🕒 {date}</b>   ·   <a href="{image}">🔗 Фото</a>
@@ -115,7 +115,7 @@ def item_kb(item: MyItem, last_page=0):
 
 def item_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>📄🛍️ Страница товара</b>
+        🛍️ <b>Страница товара</b>
         \n{placeholder}
     """)
     return txt

@@ -31,7 +31,7 @@ def bump_text():
         next_time = "никогда"
     
     txt = textwrap.dedent(f"""
-        <b>⬆️ Авто-поднятие</b>
+        ⬆️ <b>Авто-поднятие</b>
         <blockquote><b>(?)</b> Бот будет автоматически поднимать товары по интервалу, то есть, будет обновлять их PREMIUM статус, чтобы они снова были в топе.</blockquote>
 
         <b>💡 Включено:</b> {enabled}
@@ -77,7 +77,7 @@ def bump_kb():
 
 def bump_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⬆️ Авто-поднятие</b>
+        ⬆️ <b>Авто-поднятие</b>
         \n{placeholder}
     """)
     return txt

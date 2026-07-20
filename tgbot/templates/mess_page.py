@@ -14,7 +14,7 @@ def mess_page_text(message_id: int):
     message_text = "\n".join(messages[message_id]["text"]) or "❌ Не задано"
     
     txt = textwrap.dedent(f"""
-        <b>📄💬 Страница сообщения</b>
+        💬 <b>Страница сообщения</b>
         \n<b>🆔 ID:</b> {message_id}\n<b>💡 Включено:</b> {enabled}
         \n<b>💬 Текст:</b> <blockquote>{escape_html(message_text)}</blockquote>
     """)
@@ -38,7 +38,7 @@ def mess_page_kb(message_id: int, page: int = 0):
 
 def mess_page_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>📄💬 Страница сообщения</b>
+        💬 <b>Страница сообщения</b>
         \n{placeholder}
     """)
     return txt

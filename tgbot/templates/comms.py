@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def comms_text():
     custom_commands = sett.get("custom_commands")
     txt = textwrap.dedent(f"""
-        <b>❗ Команды</b>
+        ❗ <b>Команды</b>
         Всего <b>{len(custom_commands)}</b> команд:
     """)
     return txt
@@ -59,7 +59,7 @@ def comms_kb(page=0):
 
 def comms_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>❗ Команды</b>
+        ❗ <b>Команды</b>
         \n{placeholder}
     """)
     return txt
@@ -67,7 +67,7 @@ def comms_float_text(placeholder: str):
 
 def new_comm_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>➕❗ Добавление команды</b>
+        ➕❗ <b>Добавление команды</b>
         \n{placeholder}
     """)
     return txt

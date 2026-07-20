@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def bump_excluded_text():
     excluded_bump_items = sett.get("auto_bump_items").get("excluded")
     txt = textwrap.dedent(f"""
-        <b>⬆️➖ Исключенные</b>
+        ⬆️➖ <b>Исключенные</b>
         Всего <b>{len(excluded_bump_items)}</b> исключенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def bump_excluded_kb(page=0):
 
 def bump_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⬆️➖ Исключенные</b>
+        ⬆️➖ <b>Исключенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def bump_excluded_float_text(placeholder: str):
 
 def new_bump_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⬆️➖ Добавление исключенного товара</b>
+        ⬆️➖ <b>Добавление исключенного товара</b>
         \n{placeholder}
     """)
     return txt
