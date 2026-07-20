@@ -113,6 +113,18 @@ async def callback_menu_navigation(callback: CallbackQuery, callback_data: calls
         await throw_float_message(
             state, callback.message, templ.backup_text(), templ.backup_kb(), callback
         )
+    elif to == "settings":
+        await throw_float_message(
+            state, callback.message, templ.settings_menu_text(), templ.settings_menu_kb(), callback
+        )
+    elif to == "management":
+        await throw_float_message(
+            state, callback.message, templ.management_menu_text(), templ.management_menu_kb(), callback
+        )
+    elif to == "system":
+        await throw_float_message(
+            state, callback.message, templ.system_menu_text(), templ.system_menu_kb(), callback
+        )
 
 @router.callback_query(calls.PlaceholdersNavigation.filter())
 async def callback_placeholders_navigation(callback: CallbackQuery, callback_data: calls.PlaceholdersNavigation, state: FSMContext):
