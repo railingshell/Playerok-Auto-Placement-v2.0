@@ -6,8 +6,46 @@
 # --- Кодировка вывода: UTF-8, чтобы кириллица не превращалась в "?" ---
 try { chcp 65001 > $null } catch { }
 try {
-    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
-    $OutputEncoding = [System.Text.Encoding]::UTF8
+    $utf8 = New-Object System.Text.UTF8Encoding $false
+    [Console]::OutputEncoding = $utf8
+    $OutputEncoding = $utf8
+} catch { }
+
+# --- Принудительно шрифт Consolas (TrueType). На растровом шрифте кириллица = "?" ---
+try {
+    if (-not ('PapConsole' -as [type])) {
+        Add-Type -ErrorAction Stop -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+public class PapConsole {
+    [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+    public struct FONTINFO {
+        public uint cbSize;
+        public uint nFont;
+        public short X;
+        public short Y;
+        public int FontFamily;
+        public int FontWeight;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst=32)]
+        public string FaceName;
+    }
+    [DllImport("kernel32.dll", SetLastError=true)]
+    static extern IntPtr GetStdHandle(int n);
+    [DllImport("kernel32.dll", SetLastError=true)]
+    static extern bool SetCurrentConsoleFontEx(IntPtr h, bool max, ref FONTINFO f);
+    public static void SetConsolas() {
+        FONTINFO f = new FONTINFO();
+        f.cbSize = (uint)Marshal.SizeOf(typeof(FONTINFO));
+        f.FontFamily = 54;
+        f.FontWeight = 400;
+        f.Y = 18;
+        f.FaceName = "Consolas";
+        SetCurrentConsoleFontEx(GetStdHandle(-11), false, ref f);
+    }
+}
+'@
+    }
+    [PapConsole]::SetConsolas()
 } catch { }
 
 function Draw-Header {
