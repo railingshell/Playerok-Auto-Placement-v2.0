@@ -36,7 +36,7 @@ def review_text(review: Review):
     date = dt.strftime(strf)
     
     txt = textwrap.dedent(f"""
-        <b>📄🌟 Страница отзыва</b>
+        🌟 <b>Страница отзыва</b>
         \n<b>👤 Оставил:</b> {username}\n<b>🔃 Статус:</b> {status_str}
         \n<b>✨ Оценка:</b> {rating}\n<b>🏷️ Текст:</b> {text}
         \n<b>🛍️ Товар:</b> {item_name}\n<b>💰 Цена:</b> {item_price}
@@ -60,7 +60,7 @@ def review_kb(review: Review, last_page=0):
 
 def review_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>📄🌟 Страница отзыва</b>
+        🌟 <b>Страница отзыва</b>
         \n{placeholder}
     """)
     return txt

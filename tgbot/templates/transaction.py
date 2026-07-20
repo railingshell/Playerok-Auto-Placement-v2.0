@@ -60,7 +60,7 @@ def transaction_text(transaction: Transaction):
         cr_date = dt.strftime("%d.%m %H:%M:%S")
     
     txt = textwrap.dedent(f"""
-        <b>📄💳 Страница транзакции</b>
+        💳 <b>Страница транзакции</b>
         
         <b>🏷️ Операция:</b> {operation_str} ({sum}₽)
         <b>💵 Способ оплаты:</b> {provider}
@@ -79,7 +79,7 @@ def transaction_kb(transaction: Transaction, last_page=0):
 
 def transaction_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>📄💳 Страница транзакции</b>
+        💳 <b>Страница транзакции</b>
         \n{placeholder}
     """)
     return txt

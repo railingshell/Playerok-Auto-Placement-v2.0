@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def restore_excluded_text():
     excluded_restore_items = sett.get("auto_restore_items").get("excluded")
     txt = textwrap.dedent(f"""
-        <b>♻️➖ Исключенные</b>
+        ♻️➖ <b>Исключенные</b>
         Всего <b>{len(excluded_restore_items)}</b> исключенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def restore_excluded_kb(page=0):
 
 def restore_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>♻️➖ Исключенные</b>
+        ♻️➖ <b>Исключенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def restore_excluded_float_text(placeholder: str):
 
 def new_restore_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>♻️➖ Добавление исключенного товара</b>
+        ♻️➖ <b>Добавление исключенного товара</b>
         \n{placeholder}
     """)
     return txt

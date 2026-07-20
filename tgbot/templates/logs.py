@@ -11,7 +11,7 @@ def logs_text():
     max_file_size = config["logs"]["max_file_size"] or "❌ Не задано"
     
     txt = textwrap.dedent(f"""
-        <b>🗒️ Логи</b>
+        🗒️ <b>Логи</b>
 
         <b>📄 Макс. размер файла:</b> {max_file_size} MB
         <blockquote><b>(?)</b> Файл логов будет автоматически очищаться, как только его размер превысит указанный, чтобы не занимать много места на вашем устройстве.</blockquote>
@@ -50,7 +50,7 @@ def logs_file_lines_kb():
 
 def logs_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🗒️ Логи</b>
+        🗒️ <b>Логи</b>
         \n{placeholder}
     """)
     return txt

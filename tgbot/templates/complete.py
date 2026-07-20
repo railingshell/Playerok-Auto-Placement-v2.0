@@ -17,7 +17,7 @@ def complete_text():
     excluded = len(auto_complete_deals["excluded"])
     
     txt = textwrap.dedent(f"""
-        <b>☑️ Авто-подтверждение</b>
+        ☑️ <b>Авто-подтверждение</b>
         <blockquote><b>(?)</b> Бот будет автоматически подтверждать выполнение только что оформленных сделок.</blockquote>
 
         <b>💡 Включено:</b> {enabled}
@@ -55,7 +55,7 @@ def complete_kb():
 
 def complete_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>☑️ Авто-подтверждение</b>
+        ☑️ <b>Авто-подтверждение</b>
         \n{placeholder}
     """)
     return txt

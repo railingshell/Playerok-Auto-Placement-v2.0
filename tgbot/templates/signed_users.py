@@ -12,7 +12,7 @@ def signed_users_text():
     signed_users = config["telegram"]["bot"]["signed_users"]
 
     txt = textwrap.dedent(f"""
-        <b>🔑 Авторизации</b>
+        🔑 <b>Авторизации</b>
         Всего <b>{len(signed_users)}</b> юзеров:
     """)
     return txt
@@ -68,7 +68,7 @@ async def signed_users_kb(page=0):
 
 def signed_users_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>🔑 Авторизации</b>
+        🔑 <b>Авторизации</b>
         \n{placeholder}
     """)
     return txt

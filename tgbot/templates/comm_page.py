@@ -11,7 +11,7 @@ def comm_page_text(command: str):
     command_text = "\n".join(custom_commands[command]) or "❌ Не задано"
     
     txt = textwrap.dedent(f"""
-        <b>📄❗ Страница команды</b>
+        ❗ <b>Страница команды</b>
 
         <b>⌨️ Команда:</b> {command}
         <b>💬 Ответ:</b> <blockquote>{command_text}</blockquote>
@@ -34,7 +34,7 @@ def comm_page_kb(command: str, page: int = 0):
 
 def comm_page_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>📄❗ Страница команды</b>
+        ❗ <b>Страница команды</b>
         \n{placeholder}
     """)
     return txt

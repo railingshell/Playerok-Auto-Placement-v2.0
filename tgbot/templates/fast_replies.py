@@ -11,7 +11,7 @@ from .. import callback_datas as calls
 def fast_replies_text():
     fast_replies = sett.get("fast_replies")
     txt = textwrap.dedent(f"""
-        <b>⚡ Быстрые ответы</b>
+        ⚡ <b>Быстрые ответы</b>
         Всего <b>{len(fast_replies)}</b> шаблонов:
     """)
     return txt
@@ -58,7 +58,7 @@ def fast_replies_kb(page=0):
 
 def fast_replies_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⚡ Быстрые ответы</b>
+        ⚡ <b>Быстрые ответы</b>
         \n{placeholder}
     """)
     return txt
@@ -66,7 +66,7 @@ def fast_replies_float_text(placeholder: str):
 
 def new_fast_reply_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>➕⚡ Добавлениe быстрого ответа</b>
+        ➕⚡ <b>Добавлениe быстрого ответа</b>
         \n{placeholder}
     """)
     return txt

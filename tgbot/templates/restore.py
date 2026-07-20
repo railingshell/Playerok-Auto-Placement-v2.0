@@ -18,7 +18,7 @@ def restore_text():
     excluded = len(auto_restore_items["excluded"])
     
     txt = textwrap.dedent(f"""
-        <b>♻️ Авто-восстановление</b>
+        ♻️ <b>Авто-восстановление</b>
         <blockquote><b>(?)</b> Эта функция позволит автоматически восстанавливать (заново выставлять) предмет, который только что купили или который истёк, чтобы он снова был в продаже. Предмет будет выставлен с бесплатным статусом приоритета.</blockquote>
 
         <b>🛒 Проданные:</b> {sold}
@@ -62,7 +62,7 @@ def restore_kb():
 
 def restore_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>♻️ Авто-восстановление</b>
+        ♻️ <b>Авто-восстановление</b>
         \n{placeholder}
     """)
     return txt

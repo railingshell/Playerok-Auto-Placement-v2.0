@@ -24,7 +24,7 @@ def notifications_text():
     withdrawal_requested = "🟢" if events["withdrawal_requested"] else "🔴"
     
     txt = textwrap.dedent(f"""
-        <b>🔔 Уведомления</b>
+        🔔 <b>Уведомления</b>
 
         <b>💡 Включено:</b> {enabled}
         <b>💬 Чат:</b> {chat_id}
@@ -83,7 +83,7 @@ def notifications_kb():
 
 def notifications_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🔔 Уведомления</b>
+        🔔 <b>Уведомления</b>
         \n{placeholder}
     """)
     return txt

@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def complete_excluded_text():
     excluded_complete_deals = sett.get("auto_complete_deals").get("excluded")
     txt = textwrap.dedent(f"""
-        <b>☑️➖ Исключенные</b>
+        ☑️➖ <b>Исключенные</b>
         Всего <b>{len(excluded_complete_deals)}</b> исключенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def complete_excluded_kb(page=0):
 
 def complete_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>☑️➖ Исключенные</b>
+        ☑️➖ <b>Исключенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def complete_excluded_float_text(placeholder: str):
 
 def new_complete_excluded_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>☑️➖ Добавление исключенного товара</b>
+        ☑️➖ <b>Добавление исключенного товара</b>
         \n{placeholder}
     """)
     return txt

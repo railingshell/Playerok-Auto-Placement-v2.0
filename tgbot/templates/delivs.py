@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def delivs_text():
     auto_deliveries = sett.get("auto_deliveries")
     txt = textwrap.dedent(f"""
-        <b>🚀 Авто-выдача</b>
+        🚀 <b>Авто-выдача</b>
         Всего <b>{len(auto_deliveries)}</b> товаров с авто-выдачей:
     """)
     return txt
@@ -69,7 +69,7 @@ def delivs_kb(page=0):
 
 def deliv_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🚀 Авто-выдача</b>
+        🚀 <b>Авто-выдача</b>
         \n{placeholder}
     """)
     return txt
@@ -77,7 +77,7 @@ def deliv_float_text(placeholder: str):
 
 def new_deliv_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>➕🚀 Добавление авто-выдачи</b>
+        ➕🚀 <b>Добавление авто-выдачи</b>
         \n{placeholder}
     """)
     return txt

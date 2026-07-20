@@ -138,7 +138,7 @@ def deal_kb(deal: ItemDeal, last_page=0):
 
 def deal_float_text(placeholder):        
     txt = textwrap.dedent(f"""
-        <b>📄📋 Страница сделки</b>
+        📋 <b>Страница сделки</b>
         \n{placeholder}
     """)
     return txt

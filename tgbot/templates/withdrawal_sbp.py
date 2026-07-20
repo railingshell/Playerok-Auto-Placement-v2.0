@@ -9,7 +9,7 @@ from .. import callback_datas as calls
 
 def withdrawal_sbp_text(sbp_banks: list[SBPBankMember]):
     txt = textwrap.dedent(f"""
-        <b>📱 СБП банки</b>
+        📱 <b>СБП банки</b>
         Всего <b>{len(sbp_banks)}</b> банков:
     """)
     return txt
@@ -64,7 +64,7 @@ def withdrawal_sbp_kb(sbp_banks: list[SBPBankMember], page=0):
 
 def withdrawal_sbp_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>📱 СБП банки</b>
+        📱 <b>СБП банки</b>
         \n{placeholder}
     """)
     return txt

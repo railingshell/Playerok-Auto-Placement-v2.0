@@ -10,7 +10,7 @@ def stats_all_text():
     stats = get_stats()
     
     txt = textwrap.dedent(f"""
-        <b>📊 Статистика</b>
+        📊 <b>Статистика</b>
                           
         <b>📈 За всё время:</b>
         

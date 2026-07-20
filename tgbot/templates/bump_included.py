@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def bump_included_text():
     included_bump_items = sett.get("auto_bump_items").get("included")
     txt = textwrap.dedent(f"""
-        <b>⬆️➕ Включенные</b>
+        ⬆️➕ <b>Включенные</b>
         Всего <b>{len(included_bump_items)}</b> включенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def bump_included_kb(page=0):
 
 def bump_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⬆️➕ Включенные</b>
+        ⬆️➕ <b>Включенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def bump_included_float_text(placeholder: str):
 
 def new_bump_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>⬆️➕ Добавление включенного товара</b>
+        ⬆️➕ <b>Добавление включенного товара</b>
         \n{placeholder}
     """)
     return txt

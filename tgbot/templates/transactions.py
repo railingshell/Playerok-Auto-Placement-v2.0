@@ -77,7 +77,7 @@ def transactions_text(transactions: list[Transaction], page=0):
         transactions_frmtd = "Нету транзакций по заданным фильтрам. Попробуйте обновить страницу"
 
     txt = textwrap.dedent(f"""
-        <b>💳 Транзакции</b>
+        💳 <b>Транзакции</b>
         \n{transactions_frmtd}
     """)
     return txt
@@ -135,7 +135,7 @@ def transactions_kb(transactions: list[Transaction], page=0):
 
 def transactions_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>💳 Транзакции</b>
+        💳 <b>Транзакции</b>
         \n{placeholder}
     """)
     return txt

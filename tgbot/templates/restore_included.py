@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def restore_included_text():
     included_restore_items = sett.get("auto_restore_items").get("included")
     txt = textwrap.dedent(f"""
-        <b>♻️➕ Включенные</b>
+        ♻️➕ <b>Включенные</b>
         Всего <b>{len(included_restore_items)}</b> включенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def restore_included_kb(page=0):
 
 def restore_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>♻️➕ Включенные</b>
+        ♻️➕ <b>Включенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def restore_included_float_text(placeholder: str):
 
 def new_restore_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>♻️➕ Добавление включенного товара</b>
+        ♻️➕ <b>Добавление включенного товара</b>
         \n{placeholder}
     """)
     return txt

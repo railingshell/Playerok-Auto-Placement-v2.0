@@ -67,7 +67,7 @@ def deals_text(deals: list[ItemDeal], page=0):
         deals_frmtd = "Нету сделок по заданным фильтрам. Попробуйте обновить страницу"
 
     txt = textwrap.dedent(f"""
-        <b>📋 Сделки</b>
+        📋 <b>Сделки</b>
         \n{deals_frmtd}
     """)
     return txt
@@ -127,7 +127,7 @@ def deals_kb(deals: list[ItemDeal], page=0):
 
 def deals_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>📋 Сделки</b>
+        📋 <b>Сделки</b>
         \n{placeholder}
     """)
     return txt

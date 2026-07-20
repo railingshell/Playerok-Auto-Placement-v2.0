@@ -92,7 +92,7 @@ def chats_text(chats: list[Chat], page=0):
         chats_frmtd = "Не найдено чатов. Попробуйте обновить страницу"
 
     txt = textwrap.dedent(f"""
-        <b>💬 Чаты</b>
+        💬 <b>Чаты</b>
         \n{chats_frmtd}
     """)
     return txt
@@ -146,7 +146,7 @@ def chats_kb(chats: list[Chat], page=0):
 
 def chats_float_text(placeholder):
     txt = textwrap.dedent(f"""
-        <b>💬 Чаты</b>
+        💬 <b>Чаты</b>
         \n{placeholder}
     """)
     return txt

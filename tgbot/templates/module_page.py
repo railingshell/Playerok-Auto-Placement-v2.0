@@ -18,7 +18,7 @@ def module_page_text(module_uuid: UUID):
         raise Exception("Не удалось найти модуль")
 
     txt = textwrap.dedent(f"""
-        <b>📄🔌 Страница модуля</b>
+        🔌 <b>Страница модуля</b>
 
         <b>Модуль</b> <code>{_escape(module.meta.name)}</code>:
         ・ UUID: <b>{module.uuid}</b>
@@ -48,7 +48,7 @@ def module_page_kb(module_uuid: UUID, page: int = 0):
 
 def module_page_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>🔧 Управление модулем</b>
+        🔧 <b>Управление модулем</b>
         \n{placeholder}
     """)
     return txt

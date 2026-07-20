@@ -10,7 +10,7 @@ from .. import callback_datas as calls
 def complete_included_text():
     included_complete_deals = sett.get("auto_complete_deals").get("included")
     txt = textwrap.dedent(f"""
-        <b>☑️➕ Включенные</b>
+        ☑️➕ <b>Включенные</b>
         Всего <b>{len(included_complete_deals)}</b> включенных товаров:
     """)
     return txt
@@ -63,7 +63,7 @@ def complete_included_kb(page=0):
 
 def complete_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>☑️➕ Включенные</b>
+        ☑️➕ <b>Включенные</b>
         \n{placeholder}
     """)
     return txt
@@ -71,7 +71,7 @@ def complete_included_float_text(placeholder: str):
 
 def new_complete_included_float_text(placeholder: str):
     txt = textwrap.dedent(f"""
-        <b>☑️➕ Добавление включенного товара</b>
+        ☑️➕ <b>Добавление включенного товара</b>
         \n{placeholder}
     """)
     return txt
