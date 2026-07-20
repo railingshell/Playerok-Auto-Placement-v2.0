@@ -311,7 +311,7 @@ def configure_config():
             print(
                 f"\n{Fore.LIGHTYELLOW_EX}┌────┤ Введите {Fore.CYAN}Токен Telegram бота {Fore.LIGHTYELLOW_EX}├──────────────────────┐{Fore.WHITE}"
                 f"\n\n  {Fore.WHITE}Бота нужно создать у @BotFather (https://t.me/BotFather)"
-                f"\n\n  {Fore.LIGHTWHITE_EX}· Пример: {Fore.WHITE}7257913369:AAG2KjLL3-zvvfSQFSVhaTb4w7tR2iXsJXM"
+                f"\n\n  {Fore.LIGHTWHITE_EX}· Пример: {Fore.WHITE}123456789:AAExample-Token-From-BotFather-000000"
             )
             token = input(f"  {Fore.WHITE}→ {Fore.LIGHTWHITE_EX}").strip()
             
