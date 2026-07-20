@@ -27,10 +27,6 @@ CONFIG = SettingsFile(
                 "proxy": "",
                 "requests_timeout": 30
             },
-            "watermark": {
-                "enabled": True,
-                "value": "©️ 𝗣𝗹𝗮𝘆𝗲𝗿𝗼𝗸 𝗨𝗻𝗶𝘃𝗲𝗿𝘀𝗮𝗹"
-            },
             "read_chat": True,
             "auto_restore_items": {
                 "sold": True,

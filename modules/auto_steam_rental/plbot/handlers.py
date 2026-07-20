@@ -57,7 +57,7 @@ def send_admin_notification(text: str):
         return
     try:
         plbot = get_playerok_bot()
-        plbot.send_message(str(chat_id), text, exclude_watermark=True)
+        plbot.send_message(str(chat_id), text)
     except Exception as e:
         logger.error(f"{PREFIX} Ошибка уведомления админу: {e}")
 

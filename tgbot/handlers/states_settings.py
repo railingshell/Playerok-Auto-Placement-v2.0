@@ -352,35 +352,6 @@ async def handler_waiting_for_usdt_address(message: types.Message, state: FSMCon
         )
             
 
-@router.message(states.SettingsStates.waiting_for_watermark_value, F.text)
-async def handler_waiting_for_watermark_value(message: types.Message, state: FSMContext):
-    try:
-        await state.set_state(None)
-        
-        watermark = message.text
-
-        if len(watermark) <= 0 or len(watermark) >= 150:
-            raise Exception("❌ Слишком короткое или длинное значение")
-
-        config = sett.get("config")
-        config["playerok"]["watermark"]["value"] = watermark
-        sett.set("config", config)
-        
-        await throw_float_message(
-            state=state,
-            message=message,
-            text=templ.other_float_text(f"✅ <b>Водяной знак сообщений</b> был успешно изменён на <b>{watermark}</b>"),
-            reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
-        )
-    except Exception as e:
-        await throw_float_message(
-            state=state,
-            message=message,
-            text=templ.other_float_text(e), 
-            reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
-        )
-            
-
 @router.message(states.SettingsStates.waiting_for_logs_max_file_size, F.text)
 async def handler_waiting_for_logs_max_file_size(message: types.Message, state: FSMContext):
     try:
