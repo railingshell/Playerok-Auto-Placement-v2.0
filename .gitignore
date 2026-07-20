@@ -10,6 +10,11 @@ logs/
 # Local backups (contain secrets — never commit!)
 backups/
 
+# Module runtime config and data (may contain tokens, api-keys, sold accounts,
+# customer data — never commit!). Regenerated from code defaults on first run.
+modules/*/module_settings/config.json
+modules/*/module_data/
+
 # Tooling caches
 .pytest_cache/
 .ruff_cache/
