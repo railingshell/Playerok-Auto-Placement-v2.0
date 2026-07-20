@@ -51,7 +51,7 @@ def comms_kb(page=0):
         InlineKeyboardButton(text="➕ Добавить",callback_data="enter_new_custom_command"),
         InlineKeyboardButton(text="🏷️ Заменители",callback_data=calls.PlaceholdersNavigation(to="account", by="comms").pack())
     ])
-    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())])
+    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())])
     
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

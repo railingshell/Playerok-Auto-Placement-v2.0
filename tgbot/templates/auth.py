@@ -30,7 +30,7 @@ def auth_kb():
     rows = [
         [InlineKeyboardButton(text=f"🍪 Cookie-данные: {cookies}", callback_data="enter_cookies")],
         [InlineKeyboardButton(text=f"🎩 User Agent: {user_agent}", callback_data="enter_user_agent")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

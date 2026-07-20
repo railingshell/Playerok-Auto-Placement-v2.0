@@ -26,7 +26,7 @@ def logs_kb():
     rows = [
         [InlineKeyboardButton(text=f"📄 Макс. размер файла: {max_file_size} MB", callback_data="enter_logs_max_file_size")],
         [InlineKeyboardButton(text="📔 Получить логи", callback_data="select_logs_file_lines")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="system").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

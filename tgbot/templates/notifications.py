@@ -71,7 +71,7 @@ def notifications_kb():
         [InlineKeyboardButton(text=f"{item_restored} Товар восстановлен", callback_data="switch_notifications_item_restored")],
         [InlineKeyboardButton(text=f"{item_bumped} Товар поднят", callback_data="switch_notifications_item_bumped")],
         [InlineKeyboardButton(text=f"{withdrawal_requested} Вывод средств", callback_data="switch_notifications_withdrawal_requested")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     
     if config["playerok"]["notifications"]["chat_id"]:

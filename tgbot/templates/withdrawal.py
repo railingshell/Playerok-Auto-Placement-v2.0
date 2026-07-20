@@ -76,7 +76,7 @@ def withdrawal_kb(card: UserBankCard = None, sbp_bank: SBPBankMember = None):
         [InlineKeyboardButton(text=f"💡 Включено: {enabled}", callback_data="switch_auto_withdrawal_enabled")],
         [InlineKeyboardButton(text=f"⏰ Интервал: {interval} сек.", callback_data="enter_auto_withdrawal_interval")],
         [InlineKeyboardButton(text=f"💳 Реквизиты: {details}", callback_data=calls.BankCardsPagination(page=0).pack())],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

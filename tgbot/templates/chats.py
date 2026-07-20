@@ -136,7 +136,7 @@ def chats_kb(chats: list[Chat], page=0):
 
     rows.append([InlineKeyboardButton(text="💬 На сайте", url="https://playerok.com/chats")])
     rows.append([
-        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack()),
+        InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="management").pack()),
         InlineKeyboardButton(text="🔄️ Обновить", callback_data=calls.ChatsPagination(page=page, upd=True).pack())
     ])
 

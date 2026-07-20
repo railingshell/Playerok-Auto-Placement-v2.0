@@ -36,7 +36,7 @@ def other_kb():
         [InlineKeyboardButton(text=f"👀 Чтение чата: {read_chat}", callback_data="switch_read_chat_enabled")],
         [InlineKeyboardButton(text=f"©️ Водяной знак: {watermark_enabled}", callback_data="switch_watermark_enabled")],
         [InlineKeyboardButton(text=f"🏷️©️ Значение: {watermark_value}", callback_data="enter_watermark_value")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

@@ -33,7 +33,7 @@ def updates_kb():
     rows = [
         [InlineKeyboardButton(text=f"⬇️ Авто-установка: {auto_update}", callback_data="switch_updates_auto_update")],
         [InlineKeyboardButton(text=f"🔔 Оповещать: {notify}", callback_data="switch_updates_notify")],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="system").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

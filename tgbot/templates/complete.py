@@ -47,7 +47,7 @@ def complete_kb():
         InlineKeyboardButton(text=f"➕ Включенные: {included}", callback_data=calls.IncludedCompleteDealsPagination(page=0).pack()),
         InlineKeyboardButton(text=f"➖ Исключенные: {excluded}", callback_data=calls.ExcludedCompleteDealsPagination(page=0).pack())
         ],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

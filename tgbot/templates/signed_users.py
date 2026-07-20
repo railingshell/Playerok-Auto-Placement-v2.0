@@ -60,7 +60,7 @@ async def signed_users_kb(page=0):
         rows.append(buttons_row)
     
     rows.append([InlineKeyboardButton(text="🔐 Изменить ключ-пароль", callback_data="enter_current_password")])
-    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())])
+    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="system").pack())])
 
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

@@ -51,7 +51,7 @@ def mess_kb(page=0):
         rows.append(buttons_row)
 
     rows.append([InlineKeyboardButton(text="🏷️ Заменители", callback_data=calls.PlaceholdersNavigation(to="account", by="mess").pack())])
-    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())])
+    rows.append([InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="settings").pack())])
 
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb

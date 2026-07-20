@@ -37,7 +37,7 @@ def stats_all_kb():
         InlineKeyboardButton(text="🗓 30 дней", callback_data=calls.StatsNavigation(to="month").pack()),
         InlineKeyboardButton(text="· 📈 Всё время ·", callback_data=calls.StatsNavigation(to="all").pack())
         ],
-        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]
+        [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="management").pack())]
     ]
     kb = InlineKeyboardMarkup(inline_keyboard=rows)
     return kb
