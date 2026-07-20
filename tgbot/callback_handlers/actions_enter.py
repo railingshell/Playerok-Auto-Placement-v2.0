@@ -169,24 +169,6 @@ async def callback_enter_requests_timeout(callback: CallbackQuery, state: FSMCon
     )
 
 
-@router.callback_query(F.data == "enter_watermark_value")
-async def callback_enter_watermark_value(callback: CallbackQuery, state: FSMContext):
-    await state.set_state(states.SettingsStates.waiting_for_watermark_value)
-    
-    config = sett.get("config")
-    watermark_value = config["playerok"]["watermark"]["value"] or "❌ Не задано"
-    
-    await throw_float_message(
-        state=state,
-        message=callback.message,
-        text=templ.other_float_text(
-            f"🏷️©️ Введите новый <b>текст водяного знака</b> под сообщениями:"
-            f"\n\n・ <b>Текущее:</b> <code>{watermark_value}</code>"
-        ),
-        reply_markup=templ.back_kb(calls.MenuNavigation(to="other").pack())
-    )
-
-
 @router.callback_query(F.data == "enter_new_included_restore_item_keyphrases")
 async def callback_enter_new_included_restore_item_keyphrases(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()

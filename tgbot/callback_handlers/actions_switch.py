@@ -138,17 +138,6 @@ async def callback_switch_auto_withdrawal_enabled(callback: CallbackQuery, state
     )
 
 
-@router.callback_query(F.data == "switch_watermark_enabled")
-async def callback_switch_watermark_enabled(callback: CallbackQuery, state: FSMContext):
-    config = sett.get("config")
-    config["playerok"]["watermark"]["enabled"] = not config["playerok"]["watermark"]["enabled"]
-    sett.set("config", config)
-    
-    return await callback_menu_navigation(
-        callback, calls.MenuNavigation(to="other"), state
-    )
-
-
 @router.callback_query(F.data == "switch_notifications_enabled")
 async def callback_switch_notifications_enabled(callback: CallbackQuery, state: FSMContext):
     config = sett.get("config")

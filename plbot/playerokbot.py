@@ -183,7 +183,7 @@ class PlayerokBot:
 
 
     def send_message(self, chat_id: str, text: str | None = None, images: list[str | bytes] | None = None,
-                     mark_chat_as_read: bool = None, exclude_watermark: bool = False, max_attempts: int = 3) -> ChatMessage | None:
+                     mark_chat_as_read: bool = None, max_attempts: int = 3) -> ChatMessage | None:
         """
         Кастомный метод отправки сообщения в чат Playerok.
         Пытается отправить за N попыток, если не удалось - выдаёт ошибку в консоль.
@@ -197,11 +197,6 @@ class PlayerokBot:
         for _ in range(max_attempts):
             try:
                 read_chat_enabled = self.config["playerok"]["read_chat"]
-                watermark_enabled = self.config["playerok"]["watermark"]["enabled"]
-                watermark = self.config["playerok"]["watermark"]["value"]
-                
-                if text and watermark_enabled and watermark and not exclude_watermark:
-                    text += f"\n{watermark}"
                 
                 mark_chat_as_read = (read_chat_enabled or False) if mark_chat_as_read is None else mark_chat_as_read
                 mess = self.account.send_message(

@@ -48,7 +48,7 @@ def test_config_only_sensitive_fields_encrypted(cipher_key):
     config = {
         "playerok": {
             "api": {"cookies": "token=abc", "proxy": ""},
-            "watermark": {"value": "public-watermark"},
+            "read_chat": True,
         },
         "telegram": {
             "api": {"token": "123:AAA"},
@@ -62,7 +62,8 @@ def test_config_only_sensitive_fields_encrypted(cipher_key):
     # Пароль бота намеренно НЕ шифруется (нужен для восстановления доступа)
     assert on_disk["telegram"]["bot"]["password"] == "hunter2"
     # Несекретные поля остаются в открытом виде
-    assert on_disk["playerok"]["watermark"]["value"] == "public-watermark"
+    assert on_disk["playerok"]["api"]["proxy"] == ""
+    assert on_disk["playerok"]["read_chat"] is True
     # Исходный словарь не мутируется
     assert config["playerok"]["api"]["cookies"] == "token=abc"
 
