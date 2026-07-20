@@ -1,6 +1,6 @@
 [project]
 name = "playerok-auto-placement"
-version = "1.0.3"
+version = "1.0.4"
 description = "PAP — многофункциональный бот-помощник для Playerok с управлением через Telegram"
 requires-python = ">=3.12"
 
