@@ -337,3 +337,14 @@ async def callback_switch_module_enabled(callback: CallbackQuery, state: FSMCont
             text=templ.module_page_float_text(e),
             reply_markup=templ.back_kb(calls.ModulesPagination(page=last_page).pack())
         )
+
+
+@router.callback_query(F.data == "switch_forced_subscription_enabled")
+async def callback_switch_forced_subscription_enabled(callback: CallbackQuery, state: FSMContext):
+    config = sett.get("config")
+    config["telegram"]["bot"]["forced_subscription"]["enabled"] = not config["telegram"]["bot"]["forced_subscription"]["enabled"]
+    sett.set("config", config)
+
+    return await callback_menu_navigation(
+        callback, calls.MenuNavigation(to="other"), state
+    )

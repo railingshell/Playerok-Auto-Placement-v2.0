@@ -20,7 +20,7 @@ from settings import Settings as sett
 from .. import templates as templ
 from .. import callback_datas as calls
 from .. import states
-from ..helpful import throw_float_message, do_auth
+from ..helpful import throw_float_message, do_auth, is_subscribed
 from .navigation import *
 from .pagination import *
 from .page import *
@@ -39,6 +39,26 @@ async def callback_destroy(callback: CallbackQuery):
 @router.callback_query(F.data == "null_answer")
 async def callback_null_answer(callback: CallbackQuery):
     await callback.bot.answer_callback_query(callback.id)
+
+
+@router.callback_query(F.data == "check_subscription")
+async def callback_check_subscription(callback: CallbackQuery, state: FSMContext):
+    await state.set_state(None)
+
+    if not await is_subscribed(callback.from_user.id):
+        return await callback.answer("❌ Вы ещё не подписались на канал", show_alert=True)
+
+    config = sett.get("config")
+    if callback.from_user.id not in config["telegram"]["bot"]["signed_users"]:
+        return await do_auth(callback.message, state)
+
+    await throw_float_message(
+        state=state,
+        message=callback.message,
+        text=templ.menu_text(),
+        reply_markup=templ.menu_kb(),
+        callback=callback
+    )
 
 
 @router.callback_query(calls.DeleteSignedUser.filter())

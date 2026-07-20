@@ -8,7 +8,7 @@ from settings import Settings as sett
 from core.utils import restart
 
 from .. import templates as templ
-from ..helpful import throw_float_message, do_auth
+from ..helpful import throw_float_message, do_auth, is_subscribed, show_subscription_gate
 
 
 router = Router()
@@ -17,7 +17,10 @@ router = Router()
 @router.message(Command("start"))
 async def handler_start(message: types.Message, state: FSMContext):
     await state.set_state(None)
-    
+
+    if not await is_subscribed(message.from_user.id):
+        return await show_subscription_gate(message, state)
+
     config = sett.get("config")
     if message.from_user.id not in config["telegram"]["bot"]["signed_users"]:
         return await do_auth(message, state)
