@@ -8,27 +8,27 @@ from .. import callback_datas as calls
 
 
 def reviews_filter_kb(filter, last_page=0):
-    st1 = "・" if filter["status"] == ReviewStatuses.APPROVED else ""
-    st2 = "・" if filter["status"] == ReviewStatuses.DELETED else ""
-    st3 = "・" if filter["status"] is None else ""
+    st1 = "·" if filter["status"] == ReviewStatuses.APPROVED else ""
+    st2 = "·" if filter["status"] == ReviewStatuses.DELETED else ""
+    st3 = "·" if filter["status"] is None else ""
     
     cr = "❌" if filter["comment_required"] else "✅"
     rt = f"{filter['rating']} ⭐" if filter["rating"] is not None else "Любая"
     rt_val = ((filter["rating"] or 0) + 1) if (filter["rating"] or 0) < 5 else 0
 
     game = filter["game_name"] if filter["game_name"] else "🎮 Выбрать"
-    ga1 = "・" if len(filter["game_id"] or "") > 0 else ""
-    ga2 = "・" if filter["game_id"] is None else ""
+    ga1 = "·" if len(filter["game_id"] or "") > 0 else ""
+    ga2 = "·" if filter["game_id"] is None else ""
 
     cat = filter["category_name"] if filter["category_name"] else "📂 Выбрать" if ga1 else "❌ Выберите игру"
-    ca1 = "・" if len(filter["category_id"] or "") > 0 else ""
-    ca2 = "・" if filter["category_id"] is None else ""
+    ca1 = "·" if len(filter["category_id"] or "") > 0 else ""
+    ca2 = "·" if filter["category_id"] is None else ""
     
-    min_sym = "・" if (filter["min_item_price"] or 0) > 0 else ""
+    min_sym = "·" if (filter["min_item_price"] or 0) > 0 else ""
     min_pr = f"{filter['min_item_price']}₽" if (filter["min_item_price"] or 0) > 0 else "❌"
-    max_sym = "・" if (filter["max_item_price"] or 0) > 0 else ""
+    max_sym = "·" if (filter["max_item_price"] or 0) > 0 else ""
     max_pr = f"{filter['max_item_price']}₽" if (filter["max_item_price"] or 0) > 0 else "❌"
-    val = "・" if not any((filter["min_item_price"], filter["max_item_price"])) else ""
+    val = "·" if not any((filter["min_item_price"], filter["max_item_price"])) else ""
 
     rows = [
         [InlineKeyboardButton(text="━━━  СТАТУС  ━━━", callback_data="null_answer")],

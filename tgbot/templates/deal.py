@@ -42,7 +42,7 @@ def deal_text(deal: ItemDeal):
     if deal.item.data_fields:
         data_str = "<b>💾 Данные:</b>"
         for df in deal.item.data_fields:
-            data_str += f"\n・ <b>{df.label}:</b> {df.value}"
+            data_str += f"\n· <b>{df.label}:</b> {df.value}"
     
     problem = ""
     if deal.has_problem and deal.status_description:

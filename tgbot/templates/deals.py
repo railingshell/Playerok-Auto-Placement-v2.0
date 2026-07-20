@@ -37,7 +37,7 @@ def _get_deal_info(deal: ItemDeal):
             status_sym = "🟠"
             status_str = "Возврат"
 
-    has_problem = " ・ <i>🤬 Проблема</i>" if deal.has_problem else ""
+    has_problem = " · <i>🤬 Проблема</i>" if deal.has_problem else ""
 
     return username, item_name, item_price, status_str, status_sym, has_problem
 
@@ -58,8 +58,8 @@ def deals_text(deals: list[ItemDeal], page=0):
     for deal in list(deals)[start_offset:end_offset]:
         username, item_name, item_price, status_str, status_sym, has_problem = _get_deal_info(deal)
         deals_frmtd += (
-            f"<b>{status_sym} {username}</b> ・ {status_str} ・ {item_price}₽{has_problem}"
-            f"\n      ┗ {item_name}\n\n"
+            f"<b>{status_sym} {username}</b> · {status_str} · {item_price}₽{has_problem}"
+            f"\n      └ {item_name}\n\n"
         )
 
     deals_frmtd = deals_frmtd.strip()
@@ -91,7 +91,7 @@ def deals_kb(deals: list[ItemDeal], page=0):
     for deal in list(deals)[start_offset:end_offset]:
         username, item_name, _, _, status_sym, _ = _get_deal_info(deal)
         dynamic_btns.append(InlineKeyboardButton(
-            text=f"{status_sym} {username} ・ {item_name}", 
+            text=f"{status_sym} {username} · {item_name}", 
             callback_data=calls.DealPage(id=deal.id).pack())
         )
     for i in range(0, len(dynamic_btns), items_per_row):

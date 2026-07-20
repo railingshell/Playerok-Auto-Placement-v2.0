@@ -44,7 +44,7 @@ def delivs_kb(page=0):
             part = "\n".join(message) or "❌ Не задано"
         
         rows.append([InlineKeyboardButton(
-            text=f"{sym} {keyphrases_frmtd} ・ {part}", 
+            text=f"{sym} {keyphrases_frmtd} · {part}", 
             callback_data=calls.AutoDeliveryPage(index=auto_deliveries.index(deliv)).pack()
         )])
 

@@ -14,10 +14,10 @@ def stats_week_text():
 
         <b>📅 За последние 7 дней:</b>
                           
-        ・ ➕ Активных: {stats['week']['active']}
-        ・ ➖ Завершённых: {stats['week']['completed']}
-        ・ 🔙 Возвратов: {stats['week']['refunded']}
-        ・ ♾️ Всего: {stats['week']['orders']}
+        · ➕ Активных: {stats['week']['active']}
+        · ➖ Завершённых: {stats['week']['completed']}
+        · 🔙 Возвратов: {stats['week']['refunded']}
+        · ♾️ Всего: {stats['week']['orders']}
         
         <b>💸 Заработано:</b> {stats['week']['profit']} руб.
         <b>🔥 Лучший товар:</b> {stats['week']['best']}
@@ -31,7 +31,7 @@ def stats_week_kb():
     rows = [
         [
         InlineKeyboardButton(text="⏰ 24 часа", callback_data=calls.StatsNavigation(to="day").pack()),
-        InlineKeyboardButton(text="・ 📅 7 дней ・", callback_data=calls.StatsNavigation(to="week").pack())
+        InlineKeyboardButton(text="· 📅 7 дней ·", callback_data=calls.StatsNavigation(to="week").pack())
         ],
         [
         InlineKeyboardButton(text="🗓 30 дней", callback_data=calls.StatsNavigation(to="month").pack()),

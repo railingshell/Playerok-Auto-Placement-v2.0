@@ -51,7 +51,7 @@ def item_text(item: MyItem):
     if item.data_fields:
         data_str = "<b>💾 Данные:</b>"
         for df in item.data_fields:
-            data_str += f"\n・ <b>{df.label}:</b> {df.value}"
+            data_str += f"\n· <b>{df.label}:</b> {df.value}"
 
     iso_dt = item.created_at
     if iso_dt.endswith("Z"):

@@ -8,23 +8,23 @@ from .. import callback_datas as calls
 
 
 def items_filter_kb(filter, last_page=0):
-    st1 = "・" if ItemStatuses.PENDING_APPROVAL in filter["statuses"] else ""
-    st2 = "・" if ItemStatuses.PENDING_MODERATION in filter["statuses"] else ""
-    st3 = "・" if ItemStatuses.APPROVED in filter["statuses"] else ""
-    st4 = "・" if ItemStatuses.DECLINED in filter["statuses"] else ""
-    st5 = "・" if ItemStatuses.BLOCKED in filter["statuses"] else ""
-    st6 = "・" if ItemStatuses.EXPIRED in filter["statuses"] else ""
-    st7 = "・" if ItemStatuses.SOLD in filter["statuses"] else ""
-    st8 = "・" if ItemStatuses.DRAFT in filter["statuses"] else ""
-    st9 = "・" if filter["statuses"] == [] else ""
+    st1 = "·" if ItemStatuses.PENDING_APPROVAL in filter["statuses"] else ""
+    st2 = "·" if ItemStatuses.PENDING_MODERATION in filter["statuses"] else ""
+    st3 = "·" if ItemStatuses.APPROVED in filter["statuses"] else ""
+    st4 = "·" if ItemStatuses.DECLINED in filter["statuses"] else ""
+    st5 = "·" if ItemStatuses.BLOCKED in filter["statuses"] else ""
+    st6 = "·" if ItemStatuses.EXPIRED in filter["statuses"] else ""
+    st7 = "·" if ItemStatuses.SOLD in filter["statuses"] else ""
+    st8 = "·" if ItemStatuses.DRAFT in filter["statuses"] else ""
+    st9 = "·" if filter["statuses"] == [] else ""
 
     game = filter["game_name"] if filter["game_name"] else "🎮 Выбрать"
-    ga1 = "・" if len(filter["game_id"] or "") > 0 else ""
-    ga2 = "・" if filter["game_id"] is None else ""
+    ga1 = "·" if len(filter["game_id"] or "") > 0 else ""
+    ga2 = "·" if filter["game_id"] is None else ""
 
     cat = filter["category_name"] if filter["category_name"] else "📂 Выбрать" if ga1 else "❌ Выберите игру"
-    ca1 = "・" if len(filter["category_id"] or "") > 0 else ""
-    ca2 = "・" if filter["category_id"] is None else ""
+    ca1 = "·" if len(filter["category_id"] or "") > 0 else ""
+    ca2 = "·" if filter["category_id"] is None else ""
 
     rows = [
         [InlineKeyboardButton(text="━━━  СТАТУСЫ  ━━━", callback_data="null_answer")],

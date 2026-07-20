@@ -34,7 +34,7 @@ def mess_kb(page=0):
         enabled = "🟢" if info["enabled"] else "🔴"
         text_joined = "\n".join(info["text"])
         rows.append([InlineKeyboardButton(
-            text=f"{enabled} {mess_id} ・ {text_joined}", 
+            text=f"{enabled} {mess_id} · {text_joined}", 
             callback_data=calls.MessagePage(message_id=mess_id).pack())
         ])
 

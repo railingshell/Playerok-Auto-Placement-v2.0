@@ -61,7 +61,7 @@ def items_text(items: list[Item], page=0):
         item_name, item_price, status_str, status_sym = _get_item_info(item)
         items_frmtd += (
             f"<b>{status_sym} {item_name}</b>"
-            f"\n      ┗ {status_str} ・ {item_price}₽\n\n"
+            f"\n      └ {status_str} · {item_price}₽\n\n"
         )
 
     items_frmtd = items_frmtd.strip()
