@@ -83,8 +83,8 @@ def chats_text(chats: list[Chat], page=0):
     for chat in list(chats)[start_offset:end_offset]:
         username, msg, msg_date = _get_chat_info(chat)
         chats_frmtd += (
-            f"<b>{username}</b> ・ {msg_date}"
-            f"\n      ┗ {msg}\n\n"
+            f"<b>{username}</b> · {msg_date}"
+            f"\n      └ {msg}\n\n"
         )
 
     chats_frmtd = chats_frmtd.strip()

@@ -21,11 +21,11 @@ def module_page_text(module_uuid: UUID):
         🔌 <b>Страница модуля</b>
 
         <b>Модуль</b> <code>{_escape(module.meta.name)}</code>:
-        ・ UUID: <b>{module.uuid}</b>
-        ・ Версия: <b>{_escape(module.meta.version)}</b>
-        ・ Описание: <blockquote>{_escape(module.meta.description)}</blockquote>
-        ・ Авторы: <b>{_escape(module.meta.authors)}</b>
-        ・ Ссылки: <b>{_escape(module.meta.links)}</b>
+        · UUID: <b>{module.uuid}</b>
+        · Версия: <b>{_escape(module.meta.version)}</b>
+        · Описание: <blockquote>{_escape(module.meta.description)}</blockquote>
+        · Авторы: <b>{_escape(module.meta.authors)}</b>
+        · Ссылки: <b>{_escape(module.meta.links)}</b>
 
         🔌 <b>Состояние:</b> {'🟢 Включен' if module.enabled else '🔴 Выключен'}
     """)

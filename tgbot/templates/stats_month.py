@@ -14,10 +14,10 @@ def stats_month_text():
 
         <b>🗓 За последние 30 дней:</b>
                           
-        ・ ➕ Активных: {stats['month']['active']}
-        ・ ➖ Завершённых: {stats['month']['completed']}
-        ・ 🔙 Возвратов: {stats['month']['refunded']}
-        ・ ♾️ Всего: {stats['month']['orders']}
+        · ➕ Активных: {stats['month']['active']}
+        · ➖ Завершённых: {stats['month']['completed']}
+        · 🔙 Возвратов: {stats['month']['refunded']}
+        · ♾️ Всего: {stats['month']['orders']}
         
         <b>💸 Заработано:</b> {stats['month']['profit']} руб.
         <b>🔥 Лучший товар:</b> {stats['month']['best']}
@@ -34,7 +34,7 @@ def stats_month_kb():
         InlineKeyboardButton(text="📅 7 дней", callback_data=calls.StatsNavigation(to="week").pack())
         ],
         [
-        InlineKeyboardButton(text="・ 🗓 30 дней ・", callback_data=calls.StatsNavigation(to="month").pack()),
+        InlineKeyboardButton(text="· 🗓 30 дней ·", callback_data=calls.StatsNavigation(to="month").pack()),
         InlineKeyboardButton(text="📈 Всё время", callback_data=calls.StatsNavigation(to="all").pack())
         ],
         [InlineKeyboardButton(text="⬅️ Назад", callback_data=calls.MenuNavigation(to="default").pack())]

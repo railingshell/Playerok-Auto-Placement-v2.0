@@ -67,7 +67,7 @@ def chat_text(chat: Chat, msgs: list[ChatMessage]):
             strf = "%H:%M:%S" if now - dt <= timedelta(days=1) else "%d.%m %H:%M:%S"
             msg_date = dt.strftime(strf)
 
-            is_read = " ・ Не прочитано" if not msg.is_read else ""
+            is_read = " · Не прочитано" if not msg.is_read else ""
         else:
             msg_date = "??.??.??"
             is_read = ""

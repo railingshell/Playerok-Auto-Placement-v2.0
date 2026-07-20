@@ -68,8 +68,8 @@ def transactions_text(transactions: list[Transaction], page=0):
     for transaction in list(transactions)[start_offset:end_offset]:
         sum, provider, operation_str, status_str = _get_transaction_info(transaction)
         transactions_frmtd += (
-            f"<b>{operation_str} ({provider})</b> ・ {sum}₽"
-            f"\n      ┗ {status_str}\n\n"
+            f"<b>{operation_str} ({provider})</b> · {sum}₽"
+            f"\n      └ {status_str}\n\n"
         )
 
     transactions_frmtd = transactions_frmtd.strip()
@@ -101,7 +101,7 @@ def transactions_kb(transactions: list[Transaction], page=0):
     for transaction in list(transactions)[start_offset:end_offset]:
         sum, _, operation_str, _ = _get_transaction_info(transaction)
         dynamic_btns.append(InlineKeyboardButton(
-            text=f"{operation_str} ・ {sum}₽", 
+            text=f"{operation_str} · {sum}₽", 
             callback_data=calls.TransactionPage(id=transaction.id).pack())
         )
     for i in range(0, len(dynamic_btns), transactions_per_row):

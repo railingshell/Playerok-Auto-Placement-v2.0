@@ -54,8 +54,8 @@ def reviews_text(reviews: list[Review], page=0):
     for review in list(reviews)[start_offset:end_offset]:
         username, rating, text, item_name, status_sym, status_str, date = _get_review_info(review)
         reviews_frmtd += (
-            f"<b>{status_sym} {username}</b> ・ {rating} ・ {date}"
-            f"\n      ┗ {text}\n\n"
+            f"<b>{status_sym} {username}</b> · {rating} · {date}"
+            f"\n      └ {text}\n\n"
         )
 
     from plbot.playerokbot import get_playerok_bot as plbot
@@ -93,7 +93,7 @@ def reviews_kb(reviews: list[Review], page=0):
     for review in list(reviews)[start_offset:end_offset]:
         username, rating, text, item_name, status_sym, status_str, date = _get_review_info(review)
         dynamic_btns.append(InlineKeyboardButton(
-            text=f"{status_sym} {username} ・ {rating}", 
+            text=f"{status_sym} {username} · {rating}", 
             callback_data=calls.ReviewPage(id=review.id).pack())
         )
     for i in range(0, len(dynamic_btns), reviews_per_row):
