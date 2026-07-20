@@ -32,31 +32,21 @@ async def is_subscribed(user_id: int) -> bool:
     config = sett.get("config")
     fs = config["telegram"]["bot"].get("forced_subscription", {})
     if not fs.get("enabled") or not fs.get("channel"):
-        logger.info(
-            f"[подписка] пропуск user={user_id}: функция выключена или канал не задан "
-            f"(enabled={fs.get('enabled')}, channel={fs.get('channel')!r})"
-        )
         return True
 
     # Владелец/авторизованные — всегда пропускаем (нет риска самоблокировки)
     if user_id in config["telegram"]["bot"].get("signed_users", []):
-        logger.info(f"[подписка] пропуск user={user_id}: авторизован (signed_users)")
         return True
 
     from .telegrambot import get_telegram_bot
     bot = get_telegram_bot().bot
     try:
         member = await bot.get_chat_member(fs["channel"], user_id)
-        subscribed = member.status not in ("left", "kicked")
-        logger.info(
-            f"[подписка] user={user_id} канал={fs['channel']} статус={member.status} "
-            f"подписан={subscribed}"
-        )
-        return subscribed
+        return member.status not in ("left", "kicked")
     except Exception as e:
         logger.warning(
-            f"[подписка] НЕ удалось проверить {fs['channel']} для user={user_id} — "
-            f"бот должен быть администратором канала, а канал указан как @юзернейм: {e}"
+            f"Не удалось проверить подписку на {fs['channel']} — "
+            f"бот должен быть администратором канала: {e}"
         )
         return False
 
