@@ -3,28 +3,28 @@
     [string]$Action = "menu"
 )
 
-# --- Кодировка: корректный вывод кириллицы и эмодзи в консоли ---
+# --- Кодировка вывода: UTF-8, чтобы кириллица не превращалась в "?" ---
+try { chcp 65001 > $null } catch { }
 try {
     [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
     $OutputEncoding = [System.Text.Encoding]::UTF8
-    chcp 65001 > $null 2>&1
 } catch { }
 
 function Draw-Header {
     Write-Host ''
-    Write-Host '  🟦 PAP · Playerok Auto Placement' -ForegroundColor Cyan
-    Write-Host '  ─────────────────────────────────────' -ForegroundColor DarkGray
-    Write-Host '  👤 Разработчик: ' -ForegroundColor Gray -NoNewline
+    Write-Host '  PAP - Playerok Auto Placement' -ForegroundColor Cyan
+    Write-Host '  ===================================' -ForegroundColor DarkCyan
+    Write-Host '  Разработчик: ' -ForegroundColor Gray -NoNewline
     Write-Host '@lovesort' -ForegroundColor White
-    Write-Host '  📢 Новости:     ' -ForegroundColor Gray -NoNewline
+    Write-Host '  Новости:     ' -ForegroundColor Gray -NoNewline
     Write-Host 't.me/rogaartproduction' -ForegroundColor White
-    Write-Host '  🧩 Плагины:     ' -ForegroundColor Gray -NoNewline
+    Write-Host '  Плагины:     ' -ForegroundColor Gray -NoNewline
     Write-Host 't.me/lovesort' -ForegroundColor White
     Write-Host ''
 }
 
 function Draw-Line {
-    Write-Host '  ─────────────────────────────────────' -ForegroundColor DarkGray
+    Write-Host '  -----------------------------------' -ForegroundColor DarkGray
 }
 
 function Show-Intro {
@@ -37,15 +37,15 @@ function Show-Intro {
     foreach ($s in $steps) {
         $filled = [math]::Floor($perc / 4)
         $empty = 25 - $filled
-        $bar = ('█' * $filled) + ('░' * $empty)
+        $bar = ('#' * $filled) + ('-' * $empty)
         Write-Host '  [ ' -ForegroundColor Cyan -NoNewline
         Write-Host $bar -ForegroundColor Green -NoNewline
-        Write-Host (' ] {0,3}% · ' -f $perc) -ForegroundColor Gray -NoNewline
+        Write-Host (' ] {0,3}% - ' -f $perc) -ForegroundColor Gray -NoNewline
         Write-Host $s -ForegroundColor Gray
         $perc += 25
     }
     Write-Host ''
-    Write-Host '  ✅ Система готова к работе' -ForegroundColor Green
+    Write-Host '  [ OK ] Система готова к работе' -ForegroundColor Green
     Start-Sleep -Seconds 1
 }
 
@@ -54,13 +54,20 @@ function Show-Menu {
     Draw-Header
     Write-Host '  ГЛАВНОЕ МЕНЮ' -ForegroundColor White
     Draw-Line
-    Write-Host '  [1]  ▶️  Запустить Telegram-бота' -ForegroundColor Green
-    Write-Host '  [2]  🔄  Проверить обновления' -ForegroundColor Cyan
-    Write-Host '  [3]  ⬆️  Отправить изменения на GitHub' -ForegroundColor Blue
-    Write-Host '  [4]  🚀  Создать новый релиз' -ForegroundColor Magenta
-    Write-Host '  [5]  📂  Открыть папку проекта' -ForegroundColor Yellow
-    Write-Host '  [6]  💾  Создать бэкап' -ForegroundColor Green
-    Write-Host '  [7]  🚪  Выйти' -ForegroundColor Red
+    Write-Host '  [1] ' -ForegroundColor Green -NoNewline
+    Write-Host ' Запустить Telegram-бота' -ForegroundColor White
+    Write-Host '  [2] ' -ForegroundColor Cyan -NoNewline
+    Write-Host ' Проверить обновления' -ForegroundColor White
+    Write-Host '  [3] ' -ForegroundColor Blue -NoNewline
+    Write-Host ' Отправить изменения на GitHub' -ForegroundColor White
+    Write-Host '  [4] ' -ForegroundColor Magenta -NoNewline
+    Write-Host ' Создать новый релиз' -ForegroundColor White
+    Write-Host '  [5] ' -ForegroundColor Yellow -NoNewline
+    Write-Host ' Открыть папку проекта' -ForegroundColor White
+    Write-Host '  [6] ' -ForegroundColor Green -NoNewline
+    Write-Host ' Создать бэкап' -ForegroundColor White
+    Write-Host '  [7] ' -ForegroundColor Red -NoNewline
+    Write-Host ' Выйти' -ForegroundColor White
     Write-Host ''
     Draw-Line
 }
@@ -72,25 +79,25 @@ function Start-Bot {
     Write-Host ''
     python updater.py
     if ($LASTEXITCODE -ne 0) {
-        Write-Host '  ⚠️  Не удалось проверить обновления. Запускаю бота всё равно...' -ForegroundColor Yellow
+        Write-Host '  [ ! ] Не удалось проверить обновления. Запускаю бота всё равно...' -ForegroundColor Yellow
     }
     Write-Host ''
     Write-Host '  [ Шаг 2 / 2 ]  Запуск Telegram-бота...' -ForegroundColor Green
     Write-Host ''
     python bot.py
     Write-Host ''
-    Write-Host '  ℹ️  Бот остановлен. Нажмите любую клавишу для возврата в меню.' -ForegroundColor Gray
+    Write-Host '  Бот остановлен. Нажмите любую клавишу для возврата в меню.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
 
 function Check-Updates {
     Clear-Host
     Draw-Header
-    Write-Host '  🔄 Отправка запроса к GitHub API...' -ForegroundColor Cyan
+    Write-Host '  Отправка запроса к GitHub API...' -ForegroundColor Cyan
     Write-Host ''
     python updater.py
     Write-Host ''
-    Write-Host '  ℹ️  Проверка завершена. Нажмите любую клавишу.' -ForegroundColor Gray
+    Write-Host '  Проверка завершена. Нажмите любую клавишу.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
 
@@ -107,7 +114,7 @@ function Push-GitHub {
     Write-Host '  [3/3] Отправка на GitHub...' -ForegroundColor Blue
     git push origin main
     Write-Host ''
-    Write-Host '  ✅ Изменения отправлены.' -ForegroundColor Green
+    Write-Host '  [ OK ] Изменения отправлены.' -ForegroundColor Green
     Write-Host '  Нажмите любую клавишу для возврата.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
@@ -115,28 +122,28 @@ function Push-GitHub {
 function Create-Release {
     Clear-Host
     Draw-Header
-    Write-Host '  🚀 Создание нового релиза на GitHub...' -ForegroundColor Magenta
+    Write-Host '  Создание нового релиза на GitHub...' -ForegroundColor Magenta
     Write-Host ''
     python create_release.py
     Write-Host ''
-    Write-Host '  ℹ️  Операция завершена. Нажмите любую клавишу.' -ForegroundColor Gray
+    Write-Host '  Операция завершена. Нажмите любую клавишу.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
 
 function Open-Folder {
     explorer $PSScriptRoot
-    Write-Host '  ℹ️  Папка открыта. Нажмите любую клавишу.' -ForegroundColor Gray
+    Write-Host '  Папка открыта. Нажмите любую клавишу.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
 
 function Backup-Data {
     Clear-Host
     Draw-Header
-    Write-Host '  💾 Создание архива настроек и данных...' -ForegroundColor Green
+    Write-Host '  Создание архива настроек и данных...' -ForegroundColor Green
     Write-Host ''
     python backup.py create
     Write-Host ''
-    Write-Host '  ⚠️  Храните архив в надёжном месте — в нём ключ шифрования.' -ForegroundColor Yellow
+    Write-Host '  [ ! ] Храните архив в надёжном месте - в нём ключ шифрования.' -ForegroundColor Yellow
     Write-Host '  Нажмите любую клавишу для возврата.' -ForegroundColor Gray
     [void][System.Console]::ReadKey($true)
 }
@@ -144,7 +151,7 @@ function Backup-Data {
 function Exit-App {
     Clear-Host
     Draw-Header
-    Write-Host '  👋 Спасибо за использование!' -ForegroundColor Green
+    Write-Host '  Спасибо за использование!' -ForegroundColor Green
     Start-Sleep -Seconds 2
     exit 0
 }
@@ -165,7 +172,7 @@ if ($Action -eq 'intro') {
             '6' { Backup-Data }
             '7' { Exit-App }
             default {
-                Write-Host '  ❌ Неверный пункт меню. Попробуйте ещё раз.' -ForegroundColor Red
+                Write-Host '  [ X ] Неверный пункт меню. Попробуйте ещё раз.' -ForegroundColor Red
                 Start-Sleep -Seconds 1
             }
         }
